@@ -4,7 +4,7 @@ class Usuario {
         this.apellido = apellido;
         this.libros = libros;
         this.mascotas = mascotas;
-    }
+    };
 
     getFullName() {
         return `${this.nombre} ${this.apellido}`;
@@ -36,11 +36,11 @@ const usuario = new Usuario('Juan', 'Perez', [{nombre: 'El señor de las moscas'
 
                            
 console.log('nombre del usuario', usuario.getFullName());
-console.log('cantidad original de libros', usuario.getBookNames())
+console.log('cantidad original de libros', usuario.getBookNames());
 usuario.addBook(  'It','jk Stephen King');
 usuario.addBook('el señor de los anillos','tolkien');
 usuario.addBook('Cartas marcadas','Alejandro Dolina');
-console.log('cantidad actual de libros', usuario.getBookNames())
+console.log('cantidad actual de libros', usuario.getBookNames());
 console.log('cantidad de mascotas original', usuario.countMascotas());
-usuario.addMascotas('gato Toto')
+usuario.addMascotas('gato Toto');
 console.log('cantidad actual de mascotas', usuario.countMascotas());
