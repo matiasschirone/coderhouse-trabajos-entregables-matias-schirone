@@ -1,6 +1,5 @@
 const fs = require('fs')
 
-
 class Contenedor {
     constructor(ruta){
         this.ruta = ruta       
@@ -75,6 +74,7 @@ class Contenedor {
         }
     }
 
+    
     async deleteAll(){
         await fs.promises.writeFile(this.ruta, JSON.stringify([], null, 2), 'utf-8')
     }
