@@ -16,5 +16,23 @@
     "precio": 20,
     "categoria": "bebida",
     "id": 3
+  },
+  {
+    "nombe": "cafe",
+    "precio": 20,
+    "categoria": "bebida",
+    "id": 4
+  },
+  {
+    "nombe": "cafe",
+    "precio": 20,
+    "categoria": "bebida",
+    "id": 5
+  },
+  {
+    "nombe": "cafe",
+    "precio": 20,
+    "categoria": "bebida",
+    "id": 6
   }
 ]
