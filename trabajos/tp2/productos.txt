@@ -27,12 +27,12 @@
     "nombe": "cafe",
     "precio": 20,
     "categoria": "bebida",
-    "id": 5
+    "id": 6
   },
   {
     "nombe": "cafe",
     "precio": 20,
     "categoria": "bebida",
-    "id": 6
+    "id": 7
   }
 ]
