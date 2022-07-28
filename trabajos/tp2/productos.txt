@@ -24,15 +24,9 @@
     "id": 4
   },
   {
-    "nombe": "cafe",
+    "nombe": "leche",
     "precio": 20,
     "categoria": "bebida",
-    "id": 6
-  },
-  {
-    "nombe": "cafe",
-    "precio": 20,
-    "categoria": "bebida",
-    "id": 7
+    "id": 5
   }
 ]

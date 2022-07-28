@@ -76,6 +76,18 @@ class Contenedor {
         }
     }
 
+    async getLength(){
+        const dataArch = await fs.promises.readFile(this.ruta, 'utf8')
+        const dataArchParse = JSON.parse(dataArch)
+        return dataArchParse.length
+    }
+
+    async getRandom(){
+        const dataArch = await fs.promises.readFile(this.ruta, 'utf8')
+        const dataArchParse = JSON.parse(dataArch)
+        const random = Math.floor(Math.random() * dataArchParse.length)
+        return dataArchParse[random]
+    }
     
     async deleteAll(){
         await fs.promises.writeFile(this.ruta, JSON.stringify([], null, 2), 'utf-8')
