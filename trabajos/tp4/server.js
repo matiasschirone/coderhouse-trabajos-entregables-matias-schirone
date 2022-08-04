@@ -51,6 +51,13 @@ routerProductos.put ('/:id', (req, res) => {
    
 })
 
+routerProductos.delete('/:id', (req, res) => {
+    const { id } = req.params
+    const contenedor = new Contenedor('./productos.txt')
+    contenedor.deleteById(id)
+    res.json({ message: 'Producto eliminado' })
+} )
+
 app.use('/api/productos', routerProductos)
 
 const PORT = 8080
