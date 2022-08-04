@@ -10,6 +10,7 @@ const routerProductos = Router()
 
 const contenedor = new Contenedor('productos.txt')
 
+app.use('/api/productos', routerProductos)
 app.use(express.static('public'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -50,11 +51,9 @@ routerProductos.put ('/:id', (req, res) => {
 
 routerProductos.delete('/:id', (req, res) => {
     const { id } = req.params
-    contenedor.deleteById(id)
+    contenedor.delete(id)
     res.json({ message: 'Producto eliminado' })
 } )
-
-app.use('/api/productos', routerProductos)
 
 const PORT = 8080
 const server = app.listen(PORT, ()=>{
