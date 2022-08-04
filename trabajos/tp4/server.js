@@ -8,31 +8,29 @@ const app = express()
 
 const routerProductos = Router()
 
-
+const contenedor = new Contenedor('productos.txt')
 
 app.use(express.static('public'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 
-/*routerProductos.get('/', (req, res) => {
+routerProductos.get('/', async(req, res) => {
     const contenedor = new Contenedor('productos.txt')
-    const productos = contenedor.getAll()
+    let productos = await contenedor.getAll()
     res.send(productos)
-} )*/
+} )
 
-/*routerProductos.get('/:id', (req, res) => {
-    const contenedor = new Contenedor('productos.txt')
-    const producto = contenedor.getById(req.params.
+routerProductos.get('/:id', async (req, res) => {
+    const producto = await contenedor.getById(req.params.
     id)
     res.send(producto)
-} )*/
+} )
 
 
 
 routerProductos.post('/', (req, res) => {
     const objProducto = req.body
-    const contenedor = new Contenedor('productos.txt')
     contenedor.save(objProducto)
     res.json({ 
         message: 'Producto guardado',
@@ -44,7 +42,6 @@ routerProductos.put ('/:id', (req, res) => {
     const { id } = req.params
     const objProducto = req.body
     console.log(objProducto)
-    const contenedor = new Contenedor('./productos.txt')
     contenedor.updateById({id: parseInt(id), ...objProducto})
     //const respuesta = updateById({id, nombre, precio, categoria})
     //res.json(respuesta)
@@ -53,7 +50,6 @@ routerProductos.put ('/:id', (req, res) => {
 
 routerProductos.delete('/:id', (req, res) => {
     const { id } = req.params
-    const contenedor = new Contenedor('./productos.txt')
     contenedor.deleteById(id)
     res.json({ message: 'Producto eliminado' })
 } )
