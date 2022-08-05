@@ -16,14 +16,14 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 
-routerProductos.get('/', async(req, res) => {
+routerProductos.get('/', (req, res) => {
     const contenedor = new Contenedor('productos.txt')
-    let productos = await contenedor.getAll()
+    let productos = contenedor.getAll()
     res.send(productos)
 } )
 
-routerProductos.get('/:id', async (req, res) => {
-    const producto = await contenedor.getById(req.params.
+routerProductos.get('/:id',  (req, res) => {
+    const producto =  contenedor.getById(req.params.
     id)
     res.send(producto)
 } )
@@ -44,8 +44,8 @@ routerProductos.put ('/:id', (req, res) => {
     const objProducto = req.body
     console.log(objProducto)
     contenedor.updateById({id: parseInt(id), ...objProducto})
-    //const respuesta = updateById({id, nombre, precio, categoria})
-    //res.json(respuesta)
+    const respuesta = updateById({id, nombre, precio, categoria})
+    res.json(respuesta)
    
 })
 

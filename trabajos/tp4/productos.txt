@@ -3,18 +3,18 @@
     "nombre": "jugo",
     "precio": 50,
     "categoria": "bebida",
-    "id": 1,
+    "id": 1
   },
   {
     "nombre": "cafe",
     "precio": 80,
     "categoria": "bebida",
-    "id": 2,
+    "id": 2
   },
   {
     "nombre": "galletitas",
     "precio": 120,
     "categoria": "comestible",
-    "id": 3,
+    "id": 3
   }
 ]
