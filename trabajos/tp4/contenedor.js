@@ -27,14 +27,12 @@ class Contenedor {
     async updateById(obj){ 
         console.log(obj)
         try {  
-            console.log(this.ruta) 
-            let dataArch = await this.#readFileFunction(this.ruta)      
-           
-            console.log(dataArch)
+           console.log(this.ruta) 
+            let dataArch = await this.#readFileFunction(this.ruta)                
+            //console.log(dataArch)
             const objIndex = dataArch.findIndex(prod => prod.id === obj.id) 
 
-            if (objIndex !== -1) {
-               
+            if (objIndex !== -1) {              
                 dataArch[objIndex] = obj 
                 await fs.promises.writeFile(this.ruta, JSON.stringify( dataArch, null, 2))  
                 return {msg: 'actualizado el producto'}                            
@@ -121,5 +119,7 @@ class Contenedor {
 }
 
 module.exports =   { Contenedor }
+
+
 
 
