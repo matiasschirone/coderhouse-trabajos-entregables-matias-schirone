@@ -41,7 +41,7 @@ routerProductos.put('/:id', async(req, res) => {
     const objProducto = req.body
     console.log(req.body)
     const contenedor = new Contenedor('productos.txt')
-    let producto = await contenedor.updateById(req.params.id, objProducto)
+    let producto = await contenedor.updateById(parseInt(id), objProducto)
     res.send({
         message: 'Producto actualizado',
         objProducto
@@ -49,13 +49,13 @@ routerProductos.put('/:id', async(req, res) => {
 } )
 
 routerProductos.delete('/:id', async(req, res) => {
-    const { id } = req.params.id
+    const { id } = req.params
     const contenedor = new Contenedor('productos.txt')
-    let producto = await contenedor.deleteId({ id })
-    //res.send({
-    //    message: 'Producto eliminado',
-    //    id
-    //})
+    let producto = await contenedor.deleteId(parseInt(id))
+    res.send({
+        message: 'Producto eliminado',
+        id
+    })
 } )
 
 app.use('/api/productos', routerProductos)

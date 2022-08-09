@@ -1,11 +1,5 @@
 [
   {
-    "nombre": "jugo",
-    "precio": 50,
-    "categoria": "bebida",
-    "id": 1
-  },
-  {
     "nombre": "cafe",
     "precio": 80,
     "categoria": "bebida",
@@ -22,5 +16,11 @@
     "precio": "234",
     "categoria": "bebida",
     "id": 4
+  },
+  {
+    "nombre": "Producto 5",
+    "precio": 100,
+    "categoria": 10,
+    "id": 6
   }
 ]

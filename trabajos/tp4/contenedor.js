@@ -33,8 +33,14 @@ class Contenedor {
             const objIndex = dataArch.findIndex(prod => prod.id === obj.id) 
 
             if (objIndex !== -1) {
-                
-                dataArch[objIndex] = obj 
+
+                dataArch[objIndex] = {
+                    id: id,
+                    nombre: objProducto.nombre,
+                    precio: objProducto.precio,
+                    categoria: objProducto.categoria
+                }
+                console.log('dataArch',dataArch)
                 await fs.promises.writeFile(this.ruta, JSON.stringify( dataArch, null, 2))  
                 return {msg: 'actualizado el producto'}                            
             } else {
