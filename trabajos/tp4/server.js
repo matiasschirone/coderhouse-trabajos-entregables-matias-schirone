@@ -20,10 +20,9 @@ routerProductos.get('/', async(req, res) => {
 
 routerProductos.get('/:id', async(req, res) => {
     const id = req.params.id
-    console.log(id)
     const contenedor = new Contenedor('productos.txt')
-   // let productoId = await contenedor.getById(id)
-    //res.send(productoId)
+    let productoId = await contenedor.getById(id)
+    res.send(productoId)
 } )
 
 routerProductos.post('/', async(req, res) => {
@@ -50,13 +49,13 @@ routerProductos.put('/:id', async(req, res) => {
 } )
 
 routerProductos.delete('/:id', async(req, res) => {
-    const  id  = req.params.id
+    const { id } = req.params.id
     const contenedor = new Contenedor('productos.txt')
-    let producto = await contenedor.delete(id)
-    res.send({
-        message: 'Producto eliminado',
-        id
-    })
+    let producto = await contenedor.deleteId({ id })
+    //res.send({
+    //    message: 'Producto eliminado',
+    //    id
+    //})
 } )
 
 app.use('/api/productos', routerProductos)

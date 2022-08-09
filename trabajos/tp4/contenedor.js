@@ -61,14 +61,17 @@ class Contenedor {
 
 
     async getById(id){
+        console.log(id)
         try {
             let dataArch = await this.#readFileFunction(this.ruta)
-            console.log(dataArch)
-            let producto = dataArch.find(producto => producto.id === id)
-            if (producto) {                
+            console.log(this.ruta)
+           // console.log(dataArch)
+            let producto = dataArch.find(producto => producto.id == id)
+            if (producto) {  
+                return producto              
                 console.log(producto)
             } else {               
-                console.log('No se encontro el producto')  
+                //console.log('No se encontro el producto')  
             }           
         } catch (error) {
             console.log(error)
@@ -89,18 +92,28 @@ class Contenedor {
         }
     }
 
-  
-    async delete(id){
-        let dataArch = await this.#readFileFunction(this.ruta)
-        let producto = dataArch.find(prod => prod.id === id)
-        if (producto) {
-            const dataArchParseFiltrado = dataArch.filter(prod => prod.id !== id)
-            await fs.promises.writeFile(this.ruta, JSON.stringify(dataArchParseFiltrado, null, 2), 'utf-8')
-            console.log('Producto eliminado')
-        }else{
-            console.log('no existe el producto')
+    async deleteId(id){
+        //console.log(id)
+        try {
+            let dataArch = await this.#readFileFunction(this.ruta)
+            //console.log(this.ruta)
+            //console.log(dataArch)
+            let producto = dataArch.find(producto => producto.id == id)
+            
+            if (producto) {
+                console.log(producto)
+                const dataArchParseFiltrado = dataArch.filter(prod => prod.id !== id)   
+                await fs.promises.writeFile(this.ruta, JSON.stringify(dataArchParseFiltrado, null, 2), 'utf-8')
+
+                //console.log('Producto eliminado')
+            }else{
+                console.log('no existe el producto')
+            }
+        } catch (error) {
+            console.log(error)
         }
     }
+
 
     async getLength(){
         let dataArch = await this.#readFileFunction(this.ruta)
