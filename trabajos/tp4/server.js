@@ -2,14 +2,13 @@ const { Router } = require('express')
 const express = require('express')
 const { Contenedor } = require('./contenedor')
 
-
 const app = express()
 
 const routerProductos = Router()
 
-app.use('/api/productos', routerProductos)
-app.use(express.static('public'))
 app.use(express.json())
+app.use(express.static('public'))
+
 app.use(express.urlencoded({ extended: true }))
 
 
@@ -19,17 +18,16 @@ routerProductos.get('/', async(req, res) => {
     res.send(productos)
 } )
 
-routerProductos.get('/:id', async (req, res) => {
+routerProductos.get('/:id', async(req, res) => {
+    const { id } = req.params
     const contenedor = new Contenedor('productos.txt')
-    const producto = await  contenedor.getById(req.params.
-    id)
+    let producto = await contenedor.getById(id)
     res.send(producto)
 } )
 
-
-
 routerProductos.post('/', async(req, res) => {
     const objProducto = req.body
+    console.log(objProducto)
     const contenedor = new Contenedor('productos.txt')
     let producto = await contenedor.save(objProducto)
     res.send({ 
@@ -39,6 +37,7 @@ routerProductos.post('/', async(req, res) => {
 } )
 
 routerProductos.put('/:id', async(req, res) => {
+    const { id } = req.params
     const objProducto = req.body
     console.log(req.body)
     const contenedor = new Contenedor('productos.txt')
@@ -59,6 +58,7 @@ routerProductos.delete('/:id', async(req, res) => {
     })
 } )
 
+app.use('/api/productos', routerProductos)
 
 const PORT = 8080
 const server = app.listen(PORT, ()=>{

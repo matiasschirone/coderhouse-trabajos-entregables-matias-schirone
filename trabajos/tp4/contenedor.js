@@ -24,20 +24,21 @@ class Contenedor {
         }            
        
     }
+   
     async updateById(obj){ 
         console.log(obj)
-        try {  
-           console.log(this.ruta) 
-            let dataArch = await this.#readFileFunction(this.ruta)                
+        try {             
+            let dataArch = await this.#readFileFunction(this.ruta) 
             //console.log(dataArch)
             const objIndex = dataArch.findIndex(prod => prod.id === obj.id) 
 
-            if (objIndex !== -1) {              
+            if (objIndex !== -1) {
+                
                 dataArch[objIndex] = obj 
                 await fs.promises.writeFile(this.ruta, JSON.stringify( dataArch, null, 2))  
                 return {msg: 'actualizado el producto'}                            
             } else {
-                
+               
                 return {error: 'no existe el producto'}            
             }           
             
@@ -46,6 +47,7 @@ class Contenedor {
         }            
        
     }
+
 
     async getProductRamdom(){
         try {
@@ -61,6 +63,7 @@ class Contenedor {
     async getById(id){
         try {
             let dataArch = await this.#readFileFunction(this.ruta)
+            console.log(dataArch)
             let producto = dataArch.find(producto => producto.id === id)
             if (producto) {                
                 console.log(producto)
@@ -119,7 +122,4 @@ class Contenedor {
 }
 
 module.exports =   { Contenedor }
-
-
-
 
