@@ -1,23 +1,20 @@
 [
   {
-    "id": 2,
-    "nombre": "Producto 4",
-    "precio": "100"
+    "nombre": "cafe",
+    "precio": 80,
+    "categoria": "bebida",
+    "id": 2
   },
   {
-    "id": 3,
-    "nombre": "Producto 4",
-    "precio": "100"
+    "nombre": "galletitas",
+    "precio": 120,
+    "categoria": "comestible",
+    "id": 3
   },
   {
-    "id": 4,
-    "nombre": "Producto 4",
-    "precio": "100"
-  },
-  {
-    "nombre": "Producto 5",
-    "precio": 100,
-    "categoria": 10,
-    "id": 6
+    "nombre": "agua",
+    "precio": "234",
+    "categoria": "bebida",
+    "id": 4
   }
 ]
