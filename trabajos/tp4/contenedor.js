@@ -25,13 +25,14 @@ class Contenedor {
        
     }
    
-    async updateById(obj){ 
-        console.log(obj)
+    async updateById(id, objProducto){ 
+        console.log('id', id)
+        console.log('objProducto', objProducto)
         try {             
             let dataArch = await this.#readFileFunction(this.ruta) 
-            //console.log(dataArch)
-            const objIndex = dataArch.findIndex(prod => prod.id === obj.id) 
-
+            console.log('dataArch', dataArch)
+            const objIndex = dataArch.findIndex(prod => prod.id === id)
+            console.log('objIndex', objIndex) 
             if (objIndex !== -1) {
 
                 dataArch[objIndex] = {
