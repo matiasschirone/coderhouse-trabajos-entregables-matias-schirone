@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>formulario Ejs</title>
+</head>
+<body>
+</div>
+<div class="container">
+   <% if(lista){ %>
+    <% for(var i = 0; i < lista.length; i++){ %>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><%= lista[i].nombre %></h5>
+                        <p class="card-text"><%= lista[i].precio %></p>
+                        <p class="card-text"><%= lista[i].categoria %></p>
+                        <a href="#" class="btn btn-primary">Ver</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% } %>
+    <% } %>
+</div>
+</body>
+</html>

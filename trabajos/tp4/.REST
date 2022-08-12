@@ -1,8 +1,11 @@
-DELETE http://localhost:8080/api/productos/1 HTTP/1.1
+PUT http://localhost:8080/api/productos/6 HTTP/1.1
 Content-Type: application/json
 
-   
-   
-    
+ 
+  {
+    "nombre": "Pro",
+    "precio": "100",
+    "cantidad": "10"
+  }
 
 
