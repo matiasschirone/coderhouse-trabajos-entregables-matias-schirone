@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>forms handlebars</title>
+</head>
+<body>
+    <div class="container">
+        {{#if listExist}}
+            <div class="d-flex p-2 bd-highlight flex-wrap">
+                {{#each list}}
+                    <div class="card " style="max-width: 18rem; margin: 1rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{nombre}}</h5>
+                            <p class="card-text">{{descripcion}}</p>
+                            <p class="card-text">{{precio}}</p>
+                            <a href="/productos/{{id}}" class="btn btn-primary">Ver producto</a>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        {{else}}
+                <div class="d-flex p-2 bd-highlight flex-wrap">
+                    <h1>No se encontraron elementos</h1>
+                </div>
+        {{/if}}
+        </div>
+</body>
+</html>

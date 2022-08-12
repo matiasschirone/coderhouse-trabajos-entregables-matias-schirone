@@ -1,0 +1,20 @@
+[
+  {
+    "nombe": "jugo",
+    "precio": 50,
+    "categoria": "bebida",
+    "id": 1
+  },
+  {
+    "nombe": "cafe",
+    "precio": 80,
+    "categoria": "bebida",
+    "id": 2
+  },
+  {
+    "nombe": "galletitas",
+    "precio": 120,
+    "categoria": "comestible",
+    "id": 3
+  }
+]
