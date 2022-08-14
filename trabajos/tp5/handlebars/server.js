@@ -1,45 +1,69 @@
-const express = require('express')
-const handlebars = require('express-handlebars')
-const { Contenedor } = require('./contenedor')
+const express = require("express");
+const handlebars = require("express-handlebars");
+const app = express();
+const { Contenedor } = require("./contenedor");
 
-const app = express()
-app.use(express.json())
+app.use(express.json());
+
+app.use(express.urlencoded({ extended: true }));
+const port = process.env.PORT || 8080;
+
+const contenedor = new Contenedor("./productos.txt");
+
+app.set("view engine", "hbs");
+app.set("views", "./views/layouts");
+
+app.use(express.static("public"));
 
 app.engine(
-    'hbs',
-    handlebars.engine({
-        extname: 'hbs',
-        defaultLayout: 'index.hbs',
-        layoutsDir: __dirname + '/views/layouts/',
-        partialsDir: __dirname + '/views/partials/'
-    })
-)
+	"hbs",
+	handlebars.engine({
+		extname: ".hbs",
+		defaultLayout: "",
+		layoutsDir: "",
+		partialsDir: __dirname + "/views/partials"
+	})
+);
 
-app.set('view engine', 'hbs')
-app.set('views', './views')
+app.get("/", async (req, res) => {
+	const producto = await contenedor.getAll();
+    console.log(producto)
+	res.render("index", {
+		list: producto,
+		listExist: true,
+		producto: true
+	});
+});
 
-app.use(express.static('./public'))
+app.get("/productos", async (req, res) => {
+	const producto = await contenedor.getAll();
+	res.render("product", {
+		titulo: "inventario de productos",
+		list: producto,
+		listExist: true,
+		producto: true
+	});
+});
 
-app.use(express.urlencoded({ extended: true }))
+/*app.post("/productos", async (req, res) => {
+	const objProducto = req.body;
+    console.log(objProducto)
+	contenedor.save(objProducto);
+	const listExist = true;
+	res.redirect("/productos");
+});*/
 
-app.get('/', async(req, res) => {
-    const contenedor = new Contenedor('productos.txt')
-    let productos = await contenedor.getAll()
-    res.render('index', { productos })
-} )
-
-app.post('/', async(req, res) => {
+app.post('/productos', async(req, res) => {
     const objProducto = req.body
+    console.log(objProducto)
     const contenedor = new Contenedor('productos.txt')
-    await contenedor.save(objProducto)
+    let producto = await contenedor.save(objProducto)
+    const listExist = true
     res.redirect('/productos')
-
 } )
 
-const PORT = 8080
-const server = app.listen(PORT, ()=>{
-    console.log(`Escuchando en el puerto: ${server.address().port}`)
-})
-
-server.on('error', err=> console.log(err))
+app.listen(port, err => {
+	if (err) throw new Error(`Error al iniciar el servidor: ${err}`);
+	console.log(`Server is running on port ${port}`);
+});
 
