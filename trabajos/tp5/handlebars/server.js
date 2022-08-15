@@ -45,22 +45,14 @@ app.get("/productos", async (req, res) => {
 	});
 });
 
-/*app.post("/productos", async (req, res) => {
-	const objProducto = req.body;
-    console.log(objProducto)
-	contenedor.save(objProducto);
-	const listExist = true;
-	res.redirect("/productos");
-});*/
-
 app.post('/productos', async(req, res) => {
     const objProducto = req.body
     console.log(objProducto)
     const contenedor = new Contenedor('productos.txt')
     let producto = await contenedor.save(objProducto)
     const listExist = true
-    res.redirect('/productos')
-} )
+    res.redirect('/productos');
+} );
 
 app.listen(port, err => {
 	if (err) throw new Error(`Error al iniciar el servidor: ${err}`);

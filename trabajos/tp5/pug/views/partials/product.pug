@@ -11,10 +11,12 @@ html
         )
 
     body
-        br
-        div(class="d-flex p-2 bd-highlight flex-wrap container")
-        if hayLista
-                    each val in listaProductos
+            br
+            include title.pug
+            div(class="d-flex p-2 bd-highlight flex-wrap container")
+
+                if listExist
+                    each val in list
                         div(class="card m-2"
                             style="width: 18rem;"
                             )
@@ -24,7 +26,6 @@ html
                                 p(class="card-text")=val.categoria
                 else
                     h2="No hay productos"
-
-
+            include footer.pug
 
                     

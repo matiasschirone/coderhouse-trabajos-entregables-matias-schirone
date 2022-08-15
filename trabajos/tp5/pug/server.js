@@ -1,32 +1,49 @@
-const express = require('express')
-const { Contenedor } = require('./contenedor')
+const express = require("express");
+const app = express();
+const { Contenedor } = require("./contenedor");
 
-const app = express()
-app.use(express.json())
+app.use(express.json());
 
-app.set('view engine', 'pug')
-app.set('views', './views')
+app.use(express.urlencoded({ extended: true }));
+const port = process.env.PORT || 8080;
 
-app.use(express.urlencoded({ extended: true }))
+const contenedor = new Contenedor("./productos.txt");
 
-app.get('/', async(req, res) => {
-    const contenedor = new Contenedor('productos.txt')
-    let productos = await contenedor.getAll()
-    res.render('index', { productos })
-} )
+app.set("view engine", "pug");
+app.set("views", "./views");
 
-app.post('/', async(req, res) => {
-    const objProducto = req.body
-    const contenedor = new Contenedor('productos.txt')
-    await contenedor.save(objProducto)
-    res.redirect('/productos')
-
-} )
-
-const PORT = 8080
-const server = app.listen(PORT, ()=>{
-    console.log(`Escuchando en el puerto: ${server.address().port}`)
+app.get("/", async (req, res) => {
+	const producto = await contenedor.getAll();
+    console.log(producto)
+	res.render("index", {
+        titulo: "inventario de productos",
+		list: producto,
+		listExist: true,
+		producto: true
+	})
 })
 
-server.on('error', err=> console.log(err))
+app.get("/productos", async (req, res) => {
+	const producto = await contenedor.getAll();
+	res.render("partials/product", {
+		titulo: "inventario de productos",
+		list: producto,
+		listExist: true,
+		producto: true
+	});
+});
+
+app.post('/productos', async(req, res) => {
+    const objProducto = req.body
+    console.log(objProducto)
+    const contenedor = new Contenedor('productos.txt')
+    let producto = await contenedor.save(objProducto)
+    const listExist = true
+    res.redirect('/productos');
+} );
+
+app.listen(port, err => {
+	if (err) throw new Error(`Error al iniciar el servidor: ${err}`);
+	console.log(`Server is running on port ${port}`);
+});
 
