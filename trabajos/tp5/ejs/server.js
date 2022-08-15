@@ -1,30 +1,31 @@
-const express = require('express')
-const { Contenedor } = require('./contenedor')
+const express = require("express");
+const app = express();
+const { Contenedor } = require("./contenedor");
 
-const app = express()
+app.use(express.json());
 
-const contenedor = new Contenedor('./productos.txt')
+app.use(express.urlencoded({ extended: true }));
+const port = process.env.PORT || 8080;
 
-app.use(express.json())
+const contenedor = new Contenedor("./productos.txt");
 
-app.set('view engine', 'ejs')
-app.set('views', './views')
-
-app.use(express.urlencoded({ extended: true }))
+app.set("view engine", "ejs");
+app.set("views", "./views");
 
 app.get("/", async (req, res) => {
 	const producto = await contenedor.getAll();
     console.log(producto)
 	res.render("index", {
+        titulo: "inventario de productos",
 		list: producto,
 		listExist: true,
 		producto: true
-	});
-});
+	})
+})
 
 app.get("/productos", async (req, res) => {
 	const producto = await contenedor.getAll();
-	res.render("product", {
+	res.render("partials/products", {
 		titulo: "inventario de productos",
 		list: producto,
 		listExist: true,
@@ -41,10 +42,8 @@ app.post('/productos', async(req, res) => {
     res.redirect('/productos');
 } );
 
+app.listen(port, err => {
+	if (err) throw new Error(`Error al iniciar el servidor: ${err}`);
+	console.log(`Server is running on port ${port}`);
+});
 
-const PORT = 8080
-const server = app.listen(PORT, ()=>{
-    console.log(`Escuchando en el puerto: ${server.address().port}`)
-})
-
-server.on('error', err=> console.log(err))
