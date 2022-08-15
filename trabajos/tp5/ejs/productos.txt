@@ -46,5 +46,11 @@
     "precio": "620",
     "categoria": "comida",
     "id": 8
+  },
+  {
+    "nombre": "mortadela",
+    "precio": "300",
+    "categoria": "comida",
+    "id": 9
   }
 ]
