@@ -1,0 +1,38 @@
+[
+  {
+    "nombre": "jugo",
+    "precio": 50,
+    "categoria": "bebida",
+    "id": 1
+  },
+  {
+    "nombre": "cafe",
+    "precio": 80,
+    "categoria": "bebida",
+    "id": 2
+  },
+  {
+    "nombre": "galletitas",
+    "precio": 120,
+    "categoria": "comestible",
+    "id": 3
+  },
+  {
+    "nombre": "harina",
+    "precio": "100",
+    "categoria": "comemida",
+    "id": 4
+  },
+  {
+    "nombre": "te",
+    "precio": "250",
+    "categoria": "bebida",
+    "id": 5
+  },
+  {
+    "nombre": "fideo",
+    "precio": "400",
+    "categoria": "comida",
+    "id": 6
+  }
+]
