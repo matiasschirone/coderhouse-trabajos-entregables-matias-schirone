@@ -18,21 +18,9 @@
     "id": 3
   },
   {
-    "nombre": "harina",
+    "nombre": "agua",
     "precio": "100",
-    "categoria": "comemida",
-    "id": 4
-  },
-  {
-    "nombre": "te",
-    "precio": "250",
     "categoria": "bebida",
-    "id": 5
-  },
-  {
-    "nombre": "fideo",
-    "precio": "400",
-    "categoria": "comida",
-    "id": 6
+    "id": 4
   }
 ]

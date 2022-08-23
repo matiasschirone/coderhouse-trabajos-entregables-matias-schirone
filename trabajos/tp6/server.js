@@ -1,48 +1,54 @@
-const express = require('express');
-const { Server: HttpServer } = require('http');
-const { Server: IOServer } = require('socket.io');
+const express = require("express");
 const handlebars = require("express-handlebars");
-const { Contenedor } = require("./contenedor");
 
+const { Contenedor } = require("./contenedor");
+const { Server: HttpServer } = require("http");
+const { Server: IoServer } = require("socket.io");
 
 const app = express();
 const httpServer = new HttpServer(app);
-const io = new IOServer(httpServer);
-
-app.use(express.json());
+const io = new IoServer(httpServer);
 
 app.use(express.urlencoded({ extended: true }));
+const port = process.env.PORT || 8080;
 
-const PORT = process.env.PORT || 8080;
-app.use(express.static('public'));
+const contenedor = new Contenedor("./productos.json");
+const comentarios = new Contenedor("./mensajes.json");
 
-const contenedor = new Contenedor("./productos.txt");
-const mensajes = new Contenedor("./mensajes.json");
+io.on("connection", async socket => {
+	let mensajesChat = await comentarios.getAll();
+	console.log("Se contectó un usuario");
 
-/*app.get('/', (req, res) => {
-    res.sendFile('/index.html', { root: __dirname });
-})*/
+	const mensaje = {
+		mensaje: "ok",
+		mensajesChat
+	};
 
-/*io.on('connection', (socket) => {
-    //console.log('New user connected');
-    const mensaje = {
-        mensaje: 'ok',
-        productos
-    }
+	socket.emit("mensaje-servidor", mensaje);
 
-    socket.emit('mensaje-servidor', mensaje)
+	socket.on("mensaje-nuevo", async (msg, cb) => {
+		mensajesChat.push(msg);
+		const mensaje = {
+			mensaje: "mensaje nuevo",
+			mensajesChat
+		};
 
-    socket.on('producto-nuevo', (producto, cb) => {
-        productos.push(producto)
-        const mensaje = {
-            mensaje: 'producto agregado',
-            productos
-        }
-        const id = new Date().getTime()
-        io.sockets.emit('mensaje-servidor', mensaje)
-        cb(id)
-    } )
-} );*/
+		const id = new Date().getTime();
+		io.sockets.emit("mensaje-servidor", mensaje);
+		cb(id);
+		await comentarios.save({
+			id,
+			mail: msg.mail,
+			mensaje: msg.mensaje,
+			fecha: msg.hora
+		});
+	});
+});
+
+app.set("view engine", "hbs");
+app.set("views", "./views/layouts");
+
+app.use(express.static("public"));
 
 app.engine(
 	"hbs",
@@ -56,7 +62,6 @@ app.engine(
 
 app.get("/", async (req, res) => {
 	const producto = await contenedor.getAll();
-    console.log(producto)
 	res.render("index", {
 		list: producto,
 		listExist: true,
@@ -64,53 +69,31 @@ app.get("/", async (req, res) => {
 	});
 });
 
-app.get("/productos", async (req, res) => {
+app.get("/", async (req, res) => {
 	const producto = await contenedor.getAll();
-	res.render("product", {
-		titulo: "inventario de productos",
+	res.render("productos", {
+		titulo: "Útiles escolares 2022",
 		list: producto,
 		listExist: true,
 		producto: true
 	});
 });
 
+/*app.post("/", async (req, res) => {
+	const objProducto = req.body;
+	contenedor.save(objProducto);
+	res.redirect("/");
+});*/
 app.post('/productos', async(req, res) => {
     const objProducto = req.body
     console.log(objProducto)
-    const contenedor = new Contenedor('productos.txt')
+    const contenedor = new Contenedor('productos.json')
     let producto = await contenedor.save(objProducto)
     const listExist = true
-    res.redirect('/productos');
+    res.redirect('/');
 } );
 
-io.on('connection', async (socket) => {
-    let mensajesChat = await mensajes.getAll();
-    console.log('Nueva conexión');
-
-    const chat = {
-        mensaje: 'Bienvenido al chat',
-        mensajesChat
-    }
-    socket.emit("mensaje-servidor", mensaje)
-
-    socket.on('mensaje-cliente', async (msg,cb) => {
-        mensajesChat.push(msg);
-        const mensaje = {
-            mensaje: "Mensaje recibido",
-            mensajesChat
-        }
-
-        const id = new Date().getTime();
-        io.sockets.emit("mensaje-servidor", mensaje);
-        cb(id);
-        await mensajes.save({
-            id,
-            email: msg.email,
-            mensaje: msg.mensaje
-        })
-    } )
-} )
-
-httpServer.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-})
+httpServer.listen(port, err => {
+	if (err) throw new Error(`Error al iniciar el servidor: ${err}`);
+	console.log(`Server is running on port ${port}`);
+});
