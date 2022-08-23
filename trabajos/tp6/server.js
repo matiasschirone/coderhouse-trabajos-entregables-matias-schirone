@@ -79,11 +79,7 @@ app.get("/", async (req, res) => {
 	});
 });
 
-/*app.post("/", async (req, res) => {
-	const objProducto = req.body;
-	contenedor.save(objProducto);
-	res.redirect("/");
-});*/
+
 app.post('/productos', async(req, res) => {
     const objProducto = req.body
     console.log(objProducto)
