@@ -1,114 +1,62 @@
 const fs = require("fs");
 
 class Contenedor {
-	constructor(ruta) {
-		this.ruta = ruta;
-	}
-
-	async readFileFunction(ruta) {
-		let archivo = await fs.promises.readFile(ruta, "utf8");
-		let archivoParsed = await JSON.parse(archivo);
-		return archivoParsed;
+	constructor(knex, tabla) {
+		this.knex = knex;
+		this.tabla = tabla;
 	}
 
 	async save(obj) {
 		try {
-			let dataArchivo = await this.readFileFunction(this.ruta);
-			if (dataArchivo.length) {
-				// [].length = 0 -> false
-				await fs.promises.writeFile(
-					this.ruta,
-					JSON.stringify(
-						[...dataArchivo, { ...obj, id: dataArchivo.length + 1 }],
-						null,
-						2
-					)
-				);
-				// ... spread operator -> copia el array y lo agrega al final
-			} else {
-				await fs.promises.writeFile(
-					this.ruta,
-					JSON.stringify([{ ...obj, id: dataArchivo.length + 1 }], null, 2)
-				);
-				console.log(`El archivo tiene id: ${dataArchivo.length + 1}`);
-			}
+			await this.knex(this.tabla).insert(obj);
 		} catch (error) {
 			console.log("error de escritura", error);
 		}
 	}
-
-	async updateById(obj) {
+	 async getAll() {
 		try {
-			let dataArch = await this.readFileFunction(this.ruta);
-			const objIndex = dataArch.findIndex(prod => prod.id === obj.id);
-			if (objIndex !== -1) {
-				// existe
-				dataArch[objIndex] = obj;
-				await fs.promises.writeFile(
-					this.ruta,
-					JSON.stringify(dataArch, null, 2)
-				);
-				return { message: "producto actualizado" };
-			} else {
-				// no existe
-				return { error: "producto no encontrado" };
-			}
+			let dataArchivo = await this.knex(this.tabla).select();
+			return dataArchivo;
 		} catch (error) {
 			console.log("error de lectura", error);
 		}
-	}
+	 }
 
-	// traer producto por id
-	async getById(id) {
+	 async getById(id) {
 		try {
-			const dataArchivo = await this.readFileFunction(this.ruta);
-			const producto = dataArchivo.find(producto => producto.id === id);
-			if (producto) {
-				return producto;
-			} else {
-				return { error: "producto no encontrado" };
-			}
-		} catch (error) {
-			console.log("no existe el id", error);
-		}
-	}
-
-	//traer todos los productos
-	async getAll() {
-		try {
-			const dataArchivo = await this.readFileFunction(this.ruta);
-			if (dataArchivo.length) {
-				//console.log(dataArchParse);
-				return dataArchivo;
-			} else {
-				console.log("No hay productos");
-			}
+			let dataArchivo = await this.knex(this.tabla).select('*').where({ id: id });
+			return dataArchivo[0];
 		} catch (error) {
 			console.log("error de lectura", error);
 		}
-	}
-	// eliminar producto por id
-	async deleteById(id) {
+	 }
+
+	 async updateById(id, product) {
 		try {
-			const dataArchivo = await this.readFileFunction(this.ruta);
-			let producto = dataArchivo.find(producto => producto.id === id);
-			if (producto) {
-				const dataArchParseFiltrado = dataArchivo.filter(
-					prod => prod.id !== id
-				);
-				await fs.promises.writeFile(
-					this.ruta,
-					JSON.stringify(dataArchParseFiltrado, null, 2),
-					"utf-8"
-				);
-				console.log("Producto eliminado");
-			} else {
-				console.log("No se encontró producto");
-			}
+			let dataArchivo = await this.knex.from(this.tabla).where({ id: id }).update({...product});
+			return { message: "producto actualizado" };
 		} catch (error) {
-			console.log("No existe el id", error);
+			console.log("error de lectura", error);
 		}
-	}
+	 }
+
+	 async deleteById(id) {
+		try {
+			let dataArchivo = await this.knex.from(this.tabla).where({ id: id }).del();
+			return { message: "producto eliminado" };
+		} catch (error) {
+			console.log(`Error al eliminar el producto con id ${id}`);
+		}
+	 }
+
+	 async deleteAll() {
+		try {
+			let dataArchivo = await this.knex.from(this.tabla).del();
+			return { message: "productos eliminados" };
+		} catch (error) {
+			console.log(`Error al eliminar los productos`);
+		}
+	 }
 }
 
 module.exports = { Contenedor };
