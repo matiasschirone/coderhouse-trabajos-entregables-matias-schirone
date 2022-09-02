@@ -22,5 +22,11 @@
     "precio": "100",
     "categoria": "bebida",
     "id": 4
+  },
+  {
+    "nombre": "chocolate",
+    "precio": "350",
+    "categoria": "comida",
+    "id": 5
   }
 ]
