@@ -9,31 +9,26 @@ const products =[
       "nombre": "jugo",
       "precio": 50,
       "categoria": "bebida",
-      "id": 1
     },
     {
       "nombre": "cafe",
       "precio": 80,
       "categoria": "bebida",
-      "id": 2
     },
     {
       "nombre": "galletitas",
       "precio": 120,
       "categoria": "comestible",
-      "id": 3
     },
     {
       "nombre": "agua",
       "precio": "100",
       "categoria": "bebida",
-      "id": 4
     },
     {
       "nombre": "chocolate",
       "precio": "350",
       "categoria": "comida",
-      "id": 5
     }
 ];
 
@@ -59,19 +54,16 @@ const batchMariaDB = async () => {
 
 const messagges = [
     {
-        "id": 1,
         "mail": "gato@gmail.com",
         "mensaje": "hola",
         "fecha": "1:57:42 AM"
     },
     {
-        "id": 2,
         "mail": "fghjk@gmail",
         "mensaje": "como estas",
         "fecha": "1:57:42 AM"
     },
     {
-        "id": 3,
         "mail": "jhhjiuyui@gmail.com",
         "mensaje": "hi",
         "fecha": "1:57:42 AM"
