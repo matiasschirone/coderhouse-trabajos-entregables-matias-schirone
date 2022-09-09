@@ -1,0 +1,65 @@
+[{
+  "_id": {
+    "$oid": "6319f74f058f14416c6bfe16"
+  },
+  "nombre": "fideos",
+  "precio": 1280,
+  "imagen": "url",
+  "stock": 100
+},{
+  "_id": {
+    "$oid": "6319f74f058f14416c6bfe17"
+  },
+  "nombre": "arroz",
+  "precio": 1700,
+  "imagen": "url",
+  "stock": 100
+},{
+  "_id": {
+    "$oid": "6319f74f058f14416c6bfe18"
+  },
+  "nombre": "gaseosa",
+  "precio": 2300,
+  "imagen": "url",
+  "stock": 100
+},{
+  "_id": {
+    "$oid": "6319f74f058f14416c6bfe19"
+  },
+  "nombre": "cerveza",
+  "precio": 2860,
+  "imagen": "url",
+  "stock": 100
+},{
+  "_id": {
+    "$oid": "6319f74f058f14416c6bfe1a"
+  },
+  "nombre": "lentejas",
+  "precio": 3350,
+  "imagen": "url",
+  "stock": 100
+},{
+  "_id": {
+    "$oid": "6319f74f058f14416c6bfe1b"
+  },
+  "nombre": "tomate",
+  "precio": 4320,
+  "imagen": "url",
+  "stock": 0
+},{
+  "_id": {
+    "$oid": "6319f74f058f14416c6bfe1c"
+  },
+  "nombre": "queso rallado",
+  "precio": 4990,
+  "imagen": "url",
+  "stock": 0
+},{
+  "_id": {
+    "$oid": "631a9864899bda010103d4ad"
+  },
+  "nombre": "galletitas",
+  "precio": 2789,
+  "imagen": "url",
+  "stock": 100
+}]

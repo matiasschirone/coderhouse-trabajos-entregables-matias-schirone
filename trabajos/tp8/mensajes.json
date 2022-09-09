@@ -1,0 +1,85 @@
+[{
+  "_id": {
+    "$oid": "6319ebe41b0fed6cb9ce2aaa"
+  },
+  "mail": "gato@gmail.com",
+  "mensaje": "hola",
+  "fecha": ""
+},{
+  "_id": {
+    "$oid": "6319ebe41b0fed6cb9ce2aab"
+  },
+  "mail": "toto@",
+  "mensaje": "hi",
+  "fecha": ""
+},{
+  "_id": {
+    "$oid": "6319f1df058f14416c6bfdeb"
+  },
+  "mail": "gato@gmail.com",
+  "mensaje": "hola",
+  "fecha": ""
+},{
+  "_id": {
+    "$oid": "6319f1df058f14416c6bfdec"
+  },
+  "mail": "toto@",
+  "mensaje": "hi",
+  "fecha": ""
+},{
+  "_id": {
+    "$oid": "6319f1df058f14416c6bfded"
+  },
+  "mail": "gato@gmail.com",
+  "mensaje": "¿tiene alguan consulta?",
+  "fecha": ""
+},{
+  "_id": {
+    "$oid": "6319f1df058f14416c6bfdee"
+  },
+  "mail": "toto@gmail.com",
+  "mensaje": "si, ¿hacen envios?",
+  "fecha": ""
+},{
+  "_id": {
+    "$oid": "6319f1df058f14416c6bfdef"
+  },
+  "mail": "gato@gmail.com",
+  "mensaje": "si, depende del tamaño de la compra",
+  "fecha": ""
+},{
+  "_id": {
+    "$oid": "6319f1df058f14416c6bfdf0"
+  },
+  "mail": "totoQgmail.com",
+  "mensaje": "y...¿de cuanto?",
+  "fecha": ""
+},{
+  "_id": {
+    "$oid": "6319f1df058f14416c6bfdf1"
+  },
+  "mail": "gato@gmail.com",
+  "mensaje": "si, disculpa. si la compra es mayor a 10 unidades o mayor a los 10000 pesos",
+  "fecha": ""
+},{
+  "_id": {
+    "$oid": "6319f1df058f14416c6bfdf2"
+  },
+  "mail": "toto@gmail.com",
+  "mensaje": "dale, hago la lista y me vuelvo a comunicar",
+  "fecha": ""
+},{
+  "_id": {
+    "$oid": "6319f1df058f14416c6bfdf3"
+  },
+  "mail": "gato@gmail.com",
+  "mensaje": "dale, no hay problema",
+  "fecha": ""
+},{
+  "_id": {
+    "$oid": "6319f1df058f14416c6bfdf4"
+  },
+  "mail": "toto@gmail.com",
+  "mensaje": "gracias",
+  "fecha": ""
+}]
