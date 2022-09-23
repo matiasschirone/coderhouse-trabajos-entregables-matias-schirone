@@ -78,7 +78,7 @@ app.get("/", async (req, res) => {
 app.get("/", async (req, res) => {
 	const producto = await contenedor.getAll();
 	res.render("productos", {
-		titulo: "Útiles escolares 2022",
+		titulo: "productos de almacen",
 		list: producto,
 		listExist: true,
 		producto: true
