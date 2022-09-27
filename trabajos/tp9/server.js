@@ -27,31 +27,31 @@ io.on("connection", async socket => {
 	let mensajesChat = await leerComentarios.getAll();
 	console.log("Se contectó un usuario");
 	
-	const text = {
-		text: "ok",
+	const mensaje = {
+		mensaje: "ok",
 		mensajesChat
 	};
 
-	socket.emit("mensaje-servidor", text);
+	socket.emit("mensaje-servidor", mensaje);
 
 	socket.on("mensaje-nuevo", async (msg, cb) => {
 		mensajesChat.push(msg);
-		const text = {
-			text: "mensaje nuevo",
+		const mensaje = {
+			mensaje: "mensaje nuevo",
 			mensajesChat
 		};
 
-		io.sockets.emit("mensaje-servidor", text);
+		io.sockets.emit("mensaje-servidor", mensaje);
 		await guardarComentarios.save({
 			author: msg.author,
 			text: msg.text
 		});
-		exec("node ./ecommerce/mensajes.js", async (err, stdout, stderr) => {
+		/*exec("node ./ecommerce/mensajes.js", async (err, stdout, stderr) => {
 			if (err !== null) {
 				console.error(`error de exec: ${err}`);
 			}
 			return (mensajesChat = await leerComentarios.getAll());
-		});
+		});*/
 	});
 });
 
@@ -129,6 +129,7 @@ app.get("/", async (req, res) => {
 		producto: true
 	});
 });
+
 
 const port = process.env.PORT || 8080;
 

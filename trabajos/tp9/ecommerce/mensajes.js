@@ -2,7 +2,7 @@ const { normalize, denormalize, schema } = require("normalizr");
 const fs = require("fs");
 const mensajesSinNormalizar = require("./mensajesSinNormalizar.json");
 
-// **-- Mensajes --**
+
 const messages = mensajesSinNormalizar;
 console.log(JSON.stringify("tamaño antes: " + messages).length);
 //95 bytes
