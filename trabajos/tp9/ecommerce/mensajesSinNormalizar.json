@@ -1,0 +1,49 @@
+[
+	{
+		"autor" : {
+			"id" : " tdiaz@gmail.com " ,
+			"nombre" : " Tania " ,
+			"apellido" : " Diaz " ,
+			"edad" : " 32 " ,
+			"alias" : " tdiaz " ,
+			"avatar" : " https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/man5-512.png "
+		},
+		"texto" : " hola "
+	},
+    {
+        "autor" : {
+            "id" : "rgomez@gmail.com" ,
+            "nombre" : " Rodrigo " ,
+            "apellido" : " Gomez " ,
+            "edad" : " 25 " ,
+            "alias" : " rgomez_25 " ,
+            "avatar" : " https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/man5-512.png "
+        },
+        "texto" : " hola,¿todo bien? "
+    },
+    {
+        "autor" : {
+            "id" : " tdiaz@gmail.com ",
+            "nombre" : " Tania " ,
+            "apellido" : " Diaz " ,
+            "edad" : " 32 " ,   
+            "alias" : " tdiaz " ,
+            "avatar" : " https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/man5-512.png "
+        },
+        "texto" : " si, todo bien, ¿y tu? "
+    },
+    {
+        "autor" : {
+            "id" : "rgomez@gmail.com" ,
+            "nombre" : " Rodrigo " ,
+            "apellido" : " Gomez " ,
+            "edad" : " 25 " ,
+            "alias" : " rgomez_25 " ,
+            "avatar" : " https://cdn3.iconfinder.com/data/icons/avatars-round-flat/33/man5-512.png "
+        },
+        "texto" : " todo bien, ¿que haces? "
+    }
+
+
+	
+]

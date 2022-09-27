@@ -21,13 +21,12 @@ const io = new IoServer(httpServer);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-const port = process.env.PORT || 8080;
 
 
 io.on("connection", async socket => {
 	let mensajesChat = await leerComentarios.getAll();
 	console.log("Se contectó un usuario");
-
+	
 	const text = {
 		text: "ok",
 		mensajesChat
@@ -130,6 +129,8 @@ app.get("/", async (req, res) => {
 		producto: true
 	});
 });
+
+const port = process.env.PORT || 8080;
 
 httpServer.listen(port, err => {
 	if (err) throw new Error(`Error al iniciar el servidor: ${err}`);

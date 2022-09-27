@@ -5,7 +5,7 @@ const mensajesSinNormalizar = require("./mensajesSinNormalizar.json");
 // **-- Mensajes --**
 const messages = mensajesSinNormalizar;
 console.log(JSON.stringify("tamaño antes: " + messages).length);
-95 bytes
+//95 bytes
 
 // normalizr de messages
 const authorSchema = new schema.Entity("author", {}, { idAttribute: "id" });

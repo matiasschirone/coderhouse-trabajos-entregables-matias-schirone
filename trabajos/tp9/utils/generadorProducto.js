@@ -1,3 +1,4 @@
+const express = require("express");
 const { faker } = require("@faker-js/faker");
 
 class Producto {
@@ -15,7 +16,7 @@ generadorProductos = () => {
 		const producto = new Producto(
 			faker.random.numeric(),
 			faker.commerce.productName(),
-			faker.commerce.price(100, 200, 0),
+			faker.commerce.price(1000, 4000, 0),
 			faker.image.imageUrl()
 		);
 		productos.push(producto);
