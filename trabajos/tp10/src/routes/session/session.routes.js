@@ -1,10 +1,46 @@
 const express = require("express");
+const { path } = require("path");
 const authMiddleware = require("../../middlewares/auth/auth.middleware");
 const counterMiddleware = require('../../middlewares/count/count.middleware')
 
 const router = express.Router();
 
-router.get("/", authMiddleware, counterMiddleware, async (req, res) => {
+router.get("/", counterMiddleware, (req, res) => {
+  res.redirect("/home");
+});
+
+router.get("/login", counterMiddleware, (req, res) => {
+  const nombre = req.session?.nombre
+  if (nombre) {
+    res.redirect("/");
+  }else{
+    res.sendFile(path.join(process.cwd(), '/views/login.html'))
+  }
+});
+
+router.get("/logout", counterMiddleware, (req, res) => {
+  const nombre = req.session?.nombre
+  if (nombre) {
+    req.session.destroy(err => {
+      if (err) {
+        res.render(path.join(process.cwd(), '/views/pages/logout'), {nombre})
+      } else {
+        res.redirect("/");
+      }
+    });
+  }else{
+    res.redirect("/");
+  }
+});
+
+router.post("/login", counterMiddleware, (req, res) => {
+  req.session.nombre = req.body.nombre;
+  res.redirect("/home");
+});
+
+
+
+/*router.get("/", authMiddleware, counterMiddleware, async (req, res) => {
   try {
     res.status(200).send(`<h1>Hola ${req.session.username}, Como estas?, esta es tu visita numero ${req.session.visits}</h1>`)
   } catch (err) {
@@ -32,6 +68,7 @@ router.get("/login", async (req, res) => {
   }
 });
 
+
 router.get("/logout", authMiddleware, async (req, res) => {
   try {
     req.session.destroy(err => {
@@ -46,6 +83,9 @@ router.get("/logout", authMiddleware, async (req, res) => {
       message: err.message,
     });
   }
-});
+})*/
+
+
 
 module.exports = router;
+
