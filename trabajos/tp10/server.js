@@ -1,6 +1,9 @@
 const express = require("express");
 const handlebars = require("express-handlebars");
 
+const session = require("express-session");
+const MongoStore = require("connect-mongo");
+
 const { Contenedor } = require("./utils/contenedor");
 const { generadorProductos } = require("./utils/generadorProducto");
 const exec = require("child_process").exec;
@@ -21,6 +24,54 @@ const io = new IoServer(httpServer);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+app.use(session({
+    // store: MongoStore.create({ mongoUrl: config.mongoLocal.cnxStr }),
+    store: MongoStore.create({ mongoUrl: config.mongoRemote.cnxStr }),
+    secret: 'shhhhhhhhhhhhhhhhhhhhh',
+    resave: false,
+    saveUninitialized: false,
+    rolling: true,
+    cookie: {
+        maxAge: 60000
+    }
+}))
+
+const authWebRouter = new Router()
+
+authWebRouter.get('/', (req, res) => {
+    res.redirect('/home')
+})
+
+authWebRouter.get('/login', (req, res) => {
+    const nombre = req.session?.nombre
+    if (nombre) {
+        res.redirect('/')
+    } else {
+        res.sendFile(path.join(process.cwd(), '/views/login.html'))
+    }
+})
+
+authWebRouter.get('/logout', (req, res) => {
+    const nombre = req.session?.nombre
+    if (nombre) {
+        req.session.destroy(err => {
+            if (!err) {
+                res.render(path.join(process.cwd(), '/views/pages/logout.ejs'), { nombre })
+            } else {
+                res.redirect('/')
+            }
+        })
+    } else {
+        res.redirect('/')
+    }
+})
+
+
+authWebRouter.post('/login', (req, res) => {
+    req.session.nombre = req.body.nombre
+    res.redirect('/home')
+})
 
 
 io.on("connection", async socket => {
@@ -131,7 +182,7 @@ app.get("/", async (req, res) => {
 });
 
 
-const port = process.env.PORT 
+const port = process.env.PORT || 8080;
 
 httpServer.listen(port, err => {
 	if (err) throw new Error(`Error al iniciar el servidor: ${err}`);
