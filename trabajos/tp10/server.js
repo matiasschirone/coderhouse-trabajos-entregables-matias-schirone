@@ -131,7 +131,7 @@ app.get("/", async (req, res) => {
 });
 
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT 
 
 httpServer.listen(port, err => {
 	if (err) throw new Error(`Error al iniciar el servidor: ${err}`);
