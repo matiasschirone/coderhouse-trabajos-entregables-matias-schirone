@@ -6,7 +6,7 @@ const counterMiddleware = require('../../middlewares/count/count.middleware')
 const router = express.Router();
 
 router.get("/", counterMiddleware, (req, res) => {
-  res.redirect("/home");
+  res.redirect("/");
 });
 
 router.get("/login", counterMiddleware, (req, res) => {
@@ -14,7 +14,7 @@ router.get("/login", counterMiddleware, (req, res) => {
   if (nombre) {
     res.redirect("/");
   }else{
-    res.sendFile(path.join(process.cwd(), '/views/login'))
+    res.sendFile(path.join(process.cwd(), '/views/partials/login'))
   }
 });
 
@@ -35,7 +35,7 @@ router.get("/logout", counterMiddleware, (req, res) => {
 
 router.post("/login", counterMiddleware, (req, res) => {
   req.session.nombre = req.body.nombre;
-  res.redirect("/home");
+  res.redirect("/");
 });
 
 

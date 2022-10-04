@@ -5,7 +5,6 @@ const app = require('./app')
 
 require("dotenv").config();
 
-
 const { Contenedor } = require("./utils/contenedor");
 const { generadorProductos } = require("./utils/generadorProducto");
 const exec = require("child_process").exec;
@@ -20,13 +19,13 @@ const guardarComentarios = new Contenedor(
 const { Server: HttpServer } = require("http");
 const { Server: IoServer } = require("socket.io");
 
+
 //const app = express();
 const httpServer = new HttpServer(app);
 const io = new IoServer(httpServer);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
 
 io.on("connection", async socket => {
 	let mensajesChat = await leerComentarios.getAll();
