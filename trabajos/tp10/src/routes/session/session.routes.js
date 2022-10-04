@@ -14,7 +14,7 @@ router.get("/login", counterMiddleware, (req, res) => {
   if (nombre) {
     res.redirect("/");
   }else{
-    res.sendFile(path.join(process.cwd(), '/views/login.html'))
+    res.sendFile(path.join(process.cwd(), '/views/login'))
   }
 });
 

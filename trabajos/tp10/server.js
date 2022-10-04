@@ -30,7 +30,7 @@ app.use(express.json());
 
 io.on("connection", async socket => {
 	let mensajesChat = await leerComentarios.getAll();
-	console.log("Se contectó un usuario");
+	console.log("Un usuario conectado");
 	
 	const mensaje = {
 		mensaje: "ok",
@@ -51,12 +51,12 @@ io.on("connection", async socket => {
 			author: msg.author,
 			text: msg.text
 		});
-		/*exec("node ./ecommerce/mensajes.js", async (err, stdout, stderr) => {
+		exec("node ./ecommerce/mensajes.js", async (err, stdout, stderr) => {
 			if (err !== null) {
 				console.error(`error de exec: ${err}`);
 			}
 			return (mensajesChat = await leerComentarios.getAll());
-		});*/
+		});
 	});
 });
 
