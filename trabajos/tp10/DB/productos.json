@@ -1,0 +1,14 @@
+[
+    {
+      "title": "jugo",
+      "price": 1550,
+      "thumbnail": "url",
+      "id": 1
+    },
+   {
+    "title": "harina",
+    "price": 2350,
+    "thumbnail": "url",
+    "id": 2
+    }
+]
