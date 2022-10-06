@@ -3,10 +3,10 @@
   "name": "tp10",
   "version": "1.0.0",
   "description": "",
-  "main": "src/main.js",
+  "main": "src/server.js",
   "scripts": {
     "start": "node src/main.js",
-    "watch": "nodemon src/main.js -e ejs,html,js,json"
+    "watch": "nodemon src/server -e ejs,html,js,json"
   },
   "keywords": [],
   "author": "",

@@ -48,6 +48,6 @@ app.use(authWebRouter)
 app.use(homeWebRouter)
 
 const connectedServer = httpServer.listen(config.PORT, () => {
-    console.log(`Servidor http escuchando en el puerto ${connectedServer.address().port}`)
+    console.log(`Servidor escuchando en el puerto ${connectedServer.address().port}`)
 })
 connectedServer.on('error', error => console.log(`Error en servidor ${error}`))
