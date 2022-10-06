@@ -1,5 +1,5 @@
 import * as dotenv from 'dotenv' 
-dotenv.config()
+dotenv.config({path: './.env'})
 
 import express from 'express'
 import session from 'express-session'
@@ -47,7 +47,7 @@ app.use(session({
     saveUninitialized: false,
     rolling: true,
     cookie: {
-        maxAge: 60000
+        maxAge: 50000
     }
 }))
 
