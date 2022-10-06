@@ -5,7 +5,6 @@ import express from 'express'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
 
-//import config from './config.js'
 
 import { Server as HttpServer } from 'http'
 import { Server as Socket } from 'socket.io'

@@ -1,9 +1,6 @@
 import knex from 'knex'
 import config from '../src/config.js'
 
-//------------------------------------------
-// productos en MariaDb
-
 try {
     const mariaDbClient = knex(config.mariaDb)
 
