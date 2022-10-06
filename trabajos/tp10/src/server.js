@@ -40,7 +40,7 @@ app.use(express.static('public'))
 app.set('view engine', 'ejs');
 
 app.use(session({
-    store: MongoStore.create({ mongoUrl: 'mongodb+srv://procces.env.MONGO_USER:Coder1234@cluster0.sngjgjx.mongodb.net/?retryWrites=true&w=majority', mongoOptions: mongoConfig }),
+    store: MongoStore.create({ mongoUrl: 'mongodb+srv://matias:Coder1234@cluster0.sngjgjx.mongodb.net/?retryWrites=true&w=majority', mongoOptions: mongoConfig }),
     client: 'mongodb',
     secret: 'shhhhhhhhhhhhhhhhhhhhh',
     resave: false,
