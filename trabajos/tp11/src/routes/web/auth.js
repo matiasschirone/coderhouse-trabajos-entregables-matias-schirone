@@ -8,6 +8,20 @@ authWebRouter.get('/', (req, res) => {
     res.redirect('/home')
 })
 
+authWebRouter.get('/singup', (req, res) => {
+    const { nombre, email } = req.session
+    if (nombre && email) {
+        res.redirect('/login')
+    } else {
+        res. sendFile(path.join(process.cwd(), '/views/singup.html'))
+    }
+})
+
+authWebRouter.post('/singup', (req, res) => {
+    console.log(req.body)
+    res.send('recibido')
+})
+
 authWebRouter.get('/login', (req, res) => {
     const nombre = req.session?.nombre
     if (nombre) {
@@ -17,9 +31,9 @@ authWebRouter.get('/login', (req, res) => {
     }
 })
 
-authWebRouter.post('/', (req, res) => {
-    const { nombre, email } = req.body
-   
+authWebRouter.post('/login', (req, res) => {
+    req.session.nombre = req.body.nombre
+    res.redirect('/home')
 })
 
 authWebRouter.get('/logout', (req, res) => {
@@ -38,10 +52,6 @@ authWebRouter.get('/logout', (req, res) => {
 })
 
 
-authWebRouter.post('/login', (req, res) => {
-    req.session.nombre = req.body.nombre
-    res.redirect('/home')
-})
 
 
 

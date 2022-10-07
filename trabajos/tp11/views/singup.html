@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Ingreso</title>
+    <title>Registro</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 </head>
@@ -12,9 +12,9 @@
 <body>
     <div class="container mt-3">
         <div class="jumbotron">
-            <h1>Login</h1>
+            <h1>Register</h1>
             <br>
-            <form action="/register" method="post" autocomplete="off">
+            <form action="/singup" method="post" autocomplete="off">
                 <div class="form-group">
                     <label for="nombre">Ingrese su nombre</label>
                     <input id="nombre" class="form-control" type="text" name="nombre" required>
@@ -24,7 +24,7 @@
                     <input id="email" class="form-control" type="email" name="email" required>
                 <button class="btn btn-primary mt-3">Enviar</button>
                 <br>
-                <button class="btn btn-primary mt-3"><a href="/login">Login</a></button>
+                <button class="btn btn-primary mt-3"><a href="/login">login</a></button>
             </form>
         </div>
     </div>

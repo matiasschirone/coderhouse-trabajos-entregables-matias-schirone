@@ -1,6 +1,8 @@
 import * as dotenv from 'dotenv' 
 dotenv.config()
 
+import morgan from 'morgan'
+
 import express from 'express'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
@@ -9,19 +11,20 @@ import MongoStore from 'connect-mongo'
 import { Server as HttpServer } from 'http'
 import { Server as Socket } from 'socket.io'
 
-import authWebRouter from './routers/web/auth.js'
-import homeWebRouter from './routers/web/home.js'
-import productosApiRouter from './routers/api/productos.js'
+//routes
+import authWebRouter from './routes/web/auth.js'
+import homeWebRouter from './routes/web/home.js'
+import productosApiRouter from './routes/api/productos.js'
 
-import addProductosHandlers from './routers/ws/productos.js'
-import addMensajesHandlers from './routers/ws/mensajes.js'
+import addProductosHandlers from './routes/ws/productos.js'
+import addMensajesHandlers from './routes/ws/mensajes.js'
 
 /*const session = require('express-session');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;*/
 
 import passport from 'passport'
-import LocalStrategy from 'passport-local'
+import { Strategy as LocalStrategy } from 'passport-local'
 
 
 const mongoConfig = {
@@ -44,8 +47,9 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
 
-//app.set('views',__dirname + '/views')
 app.set('view engine', 'ejs');
+
+app.use(morgan('dev'))
 
 app.use(session({
     Mongostore: MongoStore.create({ mongoUrl: `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}/?retryWrites=true&w=majority`, mongoOptions: mongoConfig }),
@@ -64,6 +68,7 @@ app.use(productosApiRouter)
 app.use(authWebRouter)
 app.use(homeWebRouter)
 
+//start server
 const connectedServer = httpServer.listen( process.env.PORT, () => {
     console.log(`Servidor escuchando en el puerto ${connectedServer.address().port}`)
 })

@@ -9,12 +9,12 @@ import MongoStore from 'connect-mongo'
 import { Server as HttpServer } from 'http'
 import { Server as Socket } from 'socket.io'
 
-import authWebRouter from './routers/web/auth.js'
-import homeWebRouter from './routers/web/home.js'
-import productosApiRouter from './routers/api/productos.js'
+import authWebRouter from './routes/web/auth.js'
+import homeWebRouter from './routes/web/home.js'
+import productosApiRouter from './routes/api/productos.js'
 
-import addProductosHandlers from './routers/ws/productos.js'
-import addMensajesHandlers from './routers/ws/mensajes.js'
+import addProductosHandlers from './routes/ws/productos.js'
+import addMensajesHandlers from './routes/ws/mensajes.js'
 
 const mongoConfig = {
     useNewUrlParser: true,
