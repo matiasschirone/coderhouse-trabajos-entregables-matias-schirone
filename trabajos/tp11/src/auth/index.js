@@ -1,4 +1,4 @@
-module.exports = function webAuth(req, res, next) {
+export function webAuth(req, res, next) {
     if (req.session?.nombre) {
         next()
     } else {
@@ -6,7 +6,7 @@ module.exports = function webAuth(req, res, next) {
     }
 }
 
-module.exports = function apiAuth(req, res, next) {
+export function apiAuth(req, res, next) {
     if (req.session?.nombre) {
         next()
     } else {

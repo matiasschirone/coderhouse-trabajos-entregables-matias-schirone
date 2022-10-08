@@ -1,4 +1,4 @@
-const fs = require('fs').promises
+import { promises as fs } from 'fs'
 
 class ContenedorArchivo {
 
@@ -81,4 +81,4 @@ class ContenedorArchivo {
     }
 }
 
-module.exports = ContenedorArchivo
+export default ContenedorArchivo

@@ -12,9 +12,9 @@
 <body>
     <div class="container mt-3">
         <div class="jumbotron">
-            <h1>Register</h1>
+            <h1>Login de Usuario</h1>
             <br>
-            <form action="/singup" method="post" autocomplete="off">
+            <form action="/signup" method="post" autocomplete="off">
                 <div class="form-group">
                     <label for="nombre">Ingrese su nombre</label>
                     <input id="nombre" class="form-control" type="text" name="nombre" required>
@@ -22,9 +22,10 @@
                 <div class="form-group">
                     <label for="email">Ingrese su email</label>
                     <input id="email" class="form-control" type="email" name="email" required>
-                <button class="btn btn-primary mt-3">Enviar</button>
+                </div>
+                <button class="btn btn-success mt-3">Enviar</button>
                 <br>
-                <button class="btn btn-primary mt-3"><a href="/login">login</a></button>
+                <button class="btn btn-success mt-3"><a href="/login">Login</a></button>
             </form>
         </div>
     </div>

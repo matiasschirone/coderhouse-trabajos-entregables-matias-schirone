@@ -1,4 +1,5 @@
-const faker = require('faker')
+
+import faker from 'faker'
 faker.locale = 'es'
 
 function createNFakeProducts(n) {
@@ -22,7 +23,7 @@ function createFakeProduct(id) {
     return prod
 }
 
-module.exports = {
+export {
     createFakeProduct,
     createNFakeProducts
 }

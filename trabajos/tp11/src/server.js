@@ -1,23 +1,21 @@
-const dotenv = require('dotenv')
+import * as dotenv from 'dotenv' 
 dotenv.config()
 
-const morgan = require('morgan')
+import morgan from 'morgan'
 
-const express = require('express')
-const session = require('express-session')
-const MongoStore = require('connect-mongo')
+import express from 'express'
+import session from 'express-session'
+import MongoStore from 'connect-mongo'
 
-const { Server: HttpServer } = require("http");
-const { Server: Socket } = require("socket.io");
+import { Server as HttpServer } from 'http'
+import { Server as Socket } from 'socket.io'
 
-//routes
-const authWebRouter = require('./routes/web/auth.js')
-const homeWebRouter = require('./routes/web/home.js')
-const productosApiRouter = require('./routes/api/productos.js')
+import authWebRouter from './routes/web/auth.js'
+import homeWebRouter from './routes/web/home.js'
+import productosApiRouter from './routes/api/productos.js'
 
-const addProductosHandlers = require('./routes/ws/productos.js')
-const addMensajesHandlers = require('./routes/ws/mensajes.js')
-
+import addProductosHandlers from './routes/ws/productos.js'
+import addMensajesHandlers from './routes/ws/mensajes.js'
 
 const mongoConfig = {
     useNewUrlParser: true,
@@ -25,7 +23,6 @@ const mongoConfig = {
 }
 
 const app = express()
-
 const httpServer = new HttpServer(app)
 const io = new Socket(httpServer)
 
@@ -40,12 +37,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
 
-app.set('view engine', 'ejs')
-
-app.use(morgan('dev'))
-
-//app.use(passport.initialize())
-//app.use(passport.session())
+app.set('view engine', 'ejs');
 
 app.use(session({
     Mongostore: MongoStore.create({ mongoUrl: `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}/?retryWrites=true&w=majority`, mongoOptions: mongoConfig }),
@@ -59,12 +51,13 @@ app.use(session({
     }
 }))
 
+app.use(morgan('dev'))
+
 app.use(productosApiRouter)
 
 app.use(authWebRouter)
 app.use(homeWebRouter)
 
-//start server
 const connectedServer = httpServer.listen( process.env.PORT, () => {
     console.log(`Servidor escuchando en el puerto ${connectedServer.address().port}`)
 })

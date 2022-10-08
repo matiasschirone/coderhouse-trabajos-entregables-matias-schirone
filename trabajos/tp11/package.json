@@ -1,6 +1,6 @@
 {
-  
-  "name": "tp10",
+  "type": "module",
+  "name": "tp11",
   "version": "1.0.0",
   "description": "",
   "main": "src/server.js",
@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "bcrypt-nodejs": "^0.0.3",
     "connect-mongo": "^4.5.0",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.6",

@@ -1,28 +1,30 @@
-const Router = require('express')
-
-const path = require('path')
+import { Router } from 'express'
+import passport from 'passport'
+import path from 'path'
 
 const authWebRouter = new Router()
 
-authWebRouter.get('/', (req, res, next) => {
+authWebRouter.get('/', (req, res) => {
     res.redirect('/home')
 })
 
-authWebRouter.get('/singup', (req, res, next) => {
-    const { nombre, email } = req.session
-    if (nombre && email) {
-        res.redirect('/login')
-    } else {
-        res. sendFile(path.join(process.cwd(), '/views/singup.html'))
-    }
+authWebRouter.get('/signup', (req, res) => {
+    res.render('signup')
 })
 
-authWebRouter.post('/singup', (req, res, next) => {
+authWebRouter.post('/signup', (req, res) => {
     console.log(req.body)
     res.send('recibido')
 })
 
-authWebRouter.get('/login', (req, res, next) => {
+/*authWebRouter.post('/signup', passport.authenticate('local-signup', {
+    successRedirect: '/login',
+    failureRedirect: '/signup',
+    passReqToCallback: true
+}))*/
+
+
+authWebRouter.get('/login', (req, res) => {
     const nombre = req.session?.nombre
     if (nombre) {
         res.redirect('/')
@@ -31,12 +33,7 @@ authWebRouter.get('/login', (req, res, next) => {
     }
 })
 
-authWebRouter.post('/login', (req, res, next) => {
-    req.session.nombre = req.body.nombre
-    res.redirect('/home')
-})
-
-authWebRouter.get('/logout', (req, res, next) => {
+authWebRouter.get('/logout', (req, res) => {
     const nombre = req.session?.nombre
     if (nombre) {
         req.session.destroy(err => {
@@ -51,4 +48,12 @@ authWebRouter.get('/logout', (req, res, next) => {
     }
 })
 
-module.exports = authWebRouter
+
+authWebRouter.post('/login', (req, res) => {
+    req.session.nombre = req.body.nombre
+    res.redirect('/home')
+})
+
+
+
+export default authWebRouter

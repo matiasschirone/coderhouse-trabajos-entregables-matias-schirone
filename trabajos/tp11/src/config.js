@@ -1,7 +1,7 @@
-module.exports = {
+
+export default {
 
     fileSystem: {
         path: './DB'
     }
 }
-

@@ -1,6 +1,6 @@
-const productosApi = require('../../api/productos.js')
+import productosApi from '../../api/productos.js'
 
-module.exports = async function configurarSocket(socket, sockets) {
+export default async function configurarSocket(socket, sockets) {
     socket.emit('productos', await productosApi.listarAll());
 
     socket.on('update', async producto => {
