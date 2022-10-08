@@ -1,5 +1,5 @@
-import knex from 'knex'
-import config from '../src/config.js'
+const knex = require('knex')
+const config = require('../src/config.js')
 
 try {
     const mariaDbClient = knex(config.mariaDb)

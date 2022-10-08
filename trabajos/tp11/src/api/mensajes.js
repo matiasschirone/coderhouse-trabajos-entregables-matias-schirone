@@ -1,7 +1,7 @@
-import config from '../config.js'
+const config = require('../config.js')
 
-import ContenedorArchivo from '../contenedores/ContenedorArchivo.js'
+const ContenedorArchivo = require('../contenedores/ContenedorArchivo.js')
 
 const mensajesApi = new ContenedorArchivo(`${config.fileSystem.path}/mensajes.json`)
 
-export default mensajesApi
+module.exports = mensajesApi

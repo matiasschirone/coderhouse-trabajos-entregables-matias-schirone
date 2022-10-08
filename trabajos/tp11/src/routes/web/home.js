@@ -1,7 +1,7 @@
-import { Router } from 'express'
-import { webAuth } from '../../auth/index.js'
+const Router = require('express')
+const webAuth = require('../../auth/index.js')
 
-import path from 'path'
+const path = require('path')
 
 const productosWebRouter = new Router()
 
@@ -14,4 +14,4 @@ productosWebRouter.get('/productos-vista-test', (req, res) => {
     res.sendFile(path.join(process.cwd(), '/views/productos-vista-test.html'))
 })
 
-export default productosWebRouter
+module.exports = productosWebRouter

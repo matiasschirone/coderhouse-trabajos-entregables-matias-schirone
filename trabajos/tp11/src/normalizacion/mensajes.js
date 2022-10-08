@@ -1,4 +1,4 @@
-import { normalize, schema, } from 'normalizr'
+const { normalize, schema, } = require('normalizr')
 
 const schemaAuthor = new schema.Entity('author', {}, { idAttribute: 'email' });
 
@@ -8,4 +8,4 @@ const schemaMensajes = new schema.Entity('posts', { mensajes: [schemaMensaje] },
 
 const normalizarMensajes = (mensajesConId) => normalize({ id: 'mensajes', mensajes: mensajesConId }, schemaMensajes)
 
-export { normalizarMensajes }
+module.exports = normalizarMensajes

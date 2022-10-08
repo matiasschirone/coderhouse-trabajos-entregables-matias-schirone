@@ -1,30 +1,22 @@
-import * as dotenv from 'dotenv' 
+const dotenv = require('dotenv')
 dotenv.config()
 
-import morgan from 'morgan'
+const morgan = require('morgan')
 
-import express from 'express'
-import session from 'express-session'
-import MongoStore from 'connect-mongo'
+const express = require('express')
+const session = require('express-session')
+const MongoStore = require('connect-mongo')
 
-
-import { Server as HttpServer } from 'http'
-import { Server as Socket } from 'socket.io'
+const { Server: HttpServer } = require("http");
+const { Server: Socket } = require("socket.io");
 
 //routes
-import authWebRouter from './routes/web/auth.js'
-import homeWebRouter from './routes/web/home.js'
-import productosApiRouter from './routes/api/productos.js'
+const authWebRouter = require('./routes/web/auth.js')
+const homeWebRouter = require('./routes/web/home.js')
+const productosApiRouter = require('./routes/api/productos.js')
 
-import addProductosHandlers from './routes/ws/productos.js'
-import addMensajesHandlers from './routes/ws/mensajes.js'
-
-/*const session = require('express-session');
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;*/
-
-import passport from 'passport'
-import { Strategy as LocalStrategy } from 'passport-local'
+const addProductosHandlers = require('./routes/ws/productos.js')
+const addMensajesHandlers = require('./routes/ws/mensajes.js')
 
 
 const mongoConfig = {
@@ -33,6 +25,7 @@ const mongoConfig = {
 }
 
 const app = express()
+
 const httpServer = new HttpServer(app)
 const io = new Socket(httpServer)
 
@@ -47,9 +40,12 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
 
-app.set('view engine', 'ejs');
+app.set('view engine', 'ejs')
 
 app.use(morgan('dev'))
+
+//app.use(passport.initialize())
+//app.use(passport.session())
 
 app.use(session({
     Mongostore: MongoStore.create({ mongoUrl: `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}/?retryWrites=true&w=majority`, mongoOptions: mongoConfig }),

@@ -1,14 +1,14 @@
-import { Router } from 'express'
+const Router = require('express')
 
-import path from 'path'
+const path = require('path')
 
 const authWebRouter = new Router()
 
-authWebRouter.get('/', (req, res) => {
+authWebRouter.get('/', (req, res, next) => {
     res.redirect('/home')
 })
 
-authWebRouter.get('/singup', (req, res) => {
+authWebRouter.get('/singup', (req, res, next) => {
     const { nombre, email } = req.session
     if (nombre && email) {
         res.redirect('/login')
@@ -17,12 +17,12 @@ authWebRouter.get('/singup', (req, res) => {
     }
 })
 
-authWebRouter.post('/singup', (req, res) => {
+authWebRouter.post('/singup', (req, res, next) => {
     console.log(req.body)
     res.send('recibido')
 })
 
-authWebRouter.get('/login', (req, res) => {
+authWebRouter.get('/login', (req, res, next) => {
     const nombre = req.session?.nombre
     if (nombre) {
         res.redirect('/')
@@ -31,12 +31,12 @@ authWebRouter.get('/login', (req, res) => {
     }
 })
 
-authWebRouter.post('/login', (req, res) => {
+authWebRouter.post('/login', (req, res, next) => {
     req.session.nombre = req.body.nombre
     res.redirect('/home')
 })
 
-authWebRouter.get('/logout', (req, res) => {
+authWebRouter.get('/logout', (req, res, next) => {
     const nombre = req.session?.nombre
     if (nombre) {
         req.session.destroy(err => {
@@ -51,8 +51,4 @@ authWebRouter.get('/logout', (req, res) => {
     }
 })
 
-
-
-
-
-export default authWebRouter
+module.exports = authWebRouter

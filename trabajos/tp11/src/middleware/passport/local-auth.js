@@ -1,16 +1,12 @@
-import passport from "passport";
-import { Strategy } from "passport-local";
-
-import { User } from "../models/user.js";
-
-const LocalStrategy = Strategy;
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
 
 passport.serializeUser((user, done) => {
     done(null, user.id);
 });
 
 passport.deserializeUser(async (id, done) => {
-    const user = await User.findById(id);
+    const user = await user.findById(id);
     done(null, user);
 });
 
@@ -20,7 +16,7 @@ passport.use('local-singup', new LocalStrategy({
     passReqToCallback: true
 }, async (req, nombre, email, done) => {
     console.log(req.body)
-    const user = new User({ nombre, email })
+    const user = new user({ nombre, email })
     user.nombre = nombre;
     user.email = email;
     await user.save()

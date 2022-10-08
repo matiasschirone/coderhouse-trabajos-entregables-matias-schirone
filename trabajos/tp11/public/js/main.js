@@ -1,7 +1,5 @@
 const socket = io.connect();
 
-//------------------------------------------------------------------------------------
-
 const formAgregarProducto = document.getElementById('formAgregarProducto')
 formAgregarProducto.addEventListener('submit', e => {
     e.preventDefault()
@@ -30,20 +28,11 @@ function makeHtmlTable(productos) {
         })
 }
 
-//-------------------------------------------------------------------------------------
-
-// MENSAJES
-
-/* --------------------- DESNORMALIZACIÓN DE MENSAJES ---------------------------- */
-// Definimos un esquema de autor
 const schemaAuthor = new normalizr.schema.Entity('author', {}, { idAttribute: 'id' });
 
-// Definimos un esquema de mensaje
 const schemaMensaje = new normalizr.schema.Entity('post', { author: schemaAuthor }, { idAttribute: '_id' })
 
-// Definimos un esquema de posts
 const schemaMensajes = new normalizr.schema.Entity('posts', { mensajes: [schemaMensaje] }, { idAttribute: 'id' })
-/* ----------------------------------------------------------------------------- */
 
 const inputUsername = document.getElementById('username')
 const inputMensaje = document.getElementById('inputMensaje')
