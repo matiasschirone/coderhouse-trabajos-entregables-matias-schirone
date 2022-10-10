@@ -7,6 +7,8 @@ import express from 'express'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
 
+import passport from 'passport'
+
 import { Server as HttpServer } from 'http'
 import { Server as Socket } from 'socket.io'
 
@@ -16,6 +18,7 @@ import productosApiRouter from './routes/api/productos.js'
 
 import addProductosHandlers from './routes/ws/productos.js'
 import addMensajesHandlers from './routes/ws/mensajes.js'
+import passport from 'passport'
 
 const mongoConfig = {
     useNewUrlParser: true,
@@ -42,14 +45,19 @@ app.set('view engine', 'ejs');
 app.use(session({
     Mongostore: MongoStore.create({ mongoUrl: `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}/?retryWrites=true&w=majority`, mongoOptions: mongoConfig }),
     client: 'mongodb',
-    secret: 'shhhhhhhhhhhhhhhhhhhhh',
-    resave: false,
-    saveUninitialized: false,
-    rolling: true,
+    secret: 'secret',
     cookie: {
-        maxAge: 50000
-    }
+        httpOnly: false,
+        secure: false,
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    },
+    rolling: true,
+    resave: false,
+    saveUninitialized: false
 }))
+
+app.use(passport.initialize())
+app.use(passport.session())
 
 app.use(morgan('dev'))
 

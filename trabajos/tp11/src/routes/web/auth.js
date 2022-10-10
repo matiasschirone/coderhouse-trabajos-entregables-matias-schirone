@@ -8,22 +8,6 @@ authWebRouter.get('/', (req, res) => {
     res.redirect('/home')
 })
 
-authWebRouter.get('/signup', (req, res) => {
-    res.render('signup')
-})
-
-authWebRouter.post('/signup', (req, res) => {
-    console.log(req.body)
-    res.send('recibido')
-})
-
-/*authWebRouter.post('/signup', passport.authenticate('local-signup', {
-    successRedirect: '/login',
-    failureRedirect: '/signup',
-    passReqToCallback: true
-}))*/
-
-
 authWebRouter.get('/login', (req, res) => {
     const nombre = req.session?.nombre
     if (nombre) {
