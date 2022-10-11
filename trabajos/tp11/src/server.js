@@ -7,7 +7,7 @@ import express from 'express'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
 
-import passport from 'passport'
+//import passport from 'passport'
 
 import { Server as HttpServer } from 'http'
 import { Server as Socket } from 'socket.io'

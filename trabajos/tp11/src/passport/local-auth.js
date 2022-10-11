@@ -29,6 +29,11 @@ passport.use('login', new LocalStrategy(
                     req.flash('message', 'Invalid Password'));
             }
 
+            if (user.password !== password) {
+                console.log('Invalid Password');
+                return done(null, false, { message: 'Invalid Password' });  
+            }
+
             return done(null, user);
         });
     }
@@ -46,19 +51,20 @@ passport.use('signup', new LocalStrategy({
             }
 
             if (user) {
-                console.log('User already exists with username: ' + username);
+                console.log('El usuario ya existe');
                 return done(null, false)
             }
 
             const newUser = {
-                username: username,
+                id: user.length + 1,
+                username,
                 password: createHash(password),
                 email: req.body.email,
 
             };
 
 
-            User.create(newUser, (err, userWithId) => {
+            user.create(newUser, (err, userWithId) => {
                 if (err) {
                     console.log('Error in Saving user: ' + err);
                     return done(err);
@@ -79,6 +85,8 @@ const createHash = (password) => {
 const isValidPassword = (user, password) => {
     return bCrypt.compareSync(password, user.password);
 }
+
+
 
 export default passport;
 

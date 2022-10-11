@@ -12,16 +12,19 @@
 <body>
     <div class="container mt-3">
         <div class="jumbotron">
-            <h1>Login de Usuario</h1>
+            <h1>Registrarse</h1>
             <br>
             <form action="/signup" method="post" autocomplete="off">
                 <div class="form-group">
-                    <label for="nombre">Ingrese su nombre</label>
-                    <input id="nombre" class="form-control" type="text" name="nombre" required>
+                    <label for="username">Nombre de Usuario</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Nombre de Usuario">
                 </div>
                 <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Contraseña">
+                <div class="form-group">
                     <label for="email">Ingrese su email</label>
-                    <input id="email" class="form-control" type="email" name="email" required>
+                    <input id="email" class="form-control" type="email" name="email" required placeholder="email">
                 </div>
                 <button class="btn btn-success mt-3">Enviar</button>
                 <br>
