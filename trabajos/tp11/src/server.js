@@ -7,8 +7,6 @@ import express from 'express'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
 
-//import passport from './passport/local-auth.js'
-
 import { Server as HttpServer } from 'http'
 import { Server as Socket } from 'socket.io'
 
@@ -20,6 +18,7 @@ import addProductosHandlers from './routes/ws/productos.js'
 import addMensajesHandlers from './routes/ws/mensajes.js'
 
 import passport from 'passport'
+
 
 const mongoConfig = {
     useNewUrlParser: true,
@@ -42,6 +41,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
 
 app.set('view engine', 'ejs');
+
 
 app.use(session({
     Mongostore: MongoStore.create({ mongoUrl: `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}/?retryWrites=true&w=majority`, mongoOptions: mongoConfig }),
