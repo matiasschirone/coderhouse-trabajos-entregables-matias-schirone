@@ -3,6 +3,7 @@ import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local';
 import path from 'path'
 
+//import user from '../../models/user';
 
 const authWebRouter = new Router()
 
