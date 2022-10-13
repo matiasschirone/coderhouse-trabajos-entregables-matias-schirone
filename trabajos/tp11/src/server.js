@@ -7,6 +7,8 @@ import express from 'express'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
 
+CRUD()
+
 import { Server as HttpServer } from 'http'
 import { Server as Socket } from 'socket.io'
 
@@ -18,6 +20,7 @@ import addProductosHandlers from './routes/ws/productos.js'
 import addMensajesHandlers from './routes/ws/mensajes.js'
 
 import passport from 'passport'
+import CRUD from './database.js'
 
 
 const mongoConfig = {
@@ -44,13 +47,13 @@ app.set('view engine', 'ejs');
 
 
 app.use(session({
-    Mongostore: MongoStore.create({ mongoUrl: `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}/?retryWrites=true&w=majority`, mongoOptions: mongoConfig }),
+    //Mongostore: MongoStore.create({ mongoUrl: `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@${process.env.MONGO_HOST}/?retryWrites=true&w=majority`, mongoOptions: mongoConfig }),
     client: 'mongodb',
     secret: 'secret',
     cookie: {
         httpOnly: false,
         secure: false,
-        maxAge: 1000 * 60 * 60 * 24 * 7
+        maxAge: 60000
     },
     rolling: true,
     resave: false,

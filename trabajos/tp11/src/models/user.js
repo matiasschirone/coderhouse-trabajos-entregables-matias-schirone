@@ -3,9 +3,11 @@ import bcrypt from 'bcrypt';
 import { Schema } from 'mongoose';
 
 const userSchema = new Schema({
-  username: String,
-    password: String,
-    email: String,
+  username: { type: String, required: true },
+  email: { type: String, required: true},
+  password: { type: String, required: true },
+}, {
+  timestamps: true,
 });
 
 userSchema.methods.encryptPassword = (password) => {
@@ -16,6 +18,6 @@ userSchema.methods.comparePassword= function (password) {
   return bcrypt.compareSync(password, this.password);
 };
 
-const user = mongoose.model('user', userSchema);
+export default mongoose.model('user', userSchema);
 
-export default user;
+
