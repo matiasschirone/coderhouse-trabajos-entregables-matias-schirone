@@ -3,7 +3,8 @@ import { appendFile } from 'fs';
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local';
 import path from 'path'
-import { checkAuthenticated } from '../../auth/index.js';
+import { checkAuthenticated, validPassword } from '../../auth/index.js';
+import bcrypt from 'bcrypt';
 
 import User from '../../models/user.js'; 
 
@@ -16,7 +17,7 @@ passport.use('signup', new LocalStrategy({
   }, async (req, username, password, done) => {
     const user = await User.findOne({ username: username })
     if (user) {
-        return done(null, false, { message: 'El usuario ya existe' })
+        return done(null, false)
     }else{
         const newUser = new User({
             username: username,
@@ -32,77 +33,27 @@ passport.use('login', new LocalStrategy({
     usernameField: 'username',
     passwordField: 'password',
     passReqToCallback: true
-}, async (req, username, password, done) => {
+},  async (req, username, password, done) => {
     const user = await User.findOne({ username: username })
     if (!user) {
-        return done(null, false, { message: 'Usuario no encontrado' })
+        return done(null, false)
     }
     if (!user.comparePassword(password)) {
-        return done(null, false, { message: 'Contraseña incorrecta' })
-    return done(null, user)
-    }else{
-        return done(null, user)
+        return done(null, false)
     }
+    return done(null, user)
 }))
 
 
 
-/*passport.use('login', new LocalStrategy(
-    (username, password, done) => {
-        User.findOne({ username: username }, (err, user) => {
-            if (err) 
-                return done(err)
-            if (!user) {
-                console.log('User Not Found with username ' + username)
-                return done(null, false)
-            }
-            if (!user.comparePassword(password)) {
-                console.log('Invalid Password')
-                return done(null, false)
-            }
-            return done(null, user)
-        })
-    }
-))
+passport.serializeUser((user, done) => {
+    done(null, user.id)
+})
 
-passport.use('signup', new LocalStrategy({
-    passReqToCallback: true
-},
-    (req, username, password, done) => {
-        User.findOne({ username: username }, (err, user) => {
-            if (err) {
-                console.log('Error in SignUp: ' + err)
-                return done(err)
-            }
-            if (user) {
-                console.log('User already exists with username: ' + username)
-                return done(null, false)
-            } else {
-                const newUser = new User()
-                newUser.username = username
-                newUser.password = newUser.encryptPassword(password)
-                newUser.save((err) => {
-                    if (err) {
-                        console.log('Error in Saving user: ' + err)
-                        throw err
-                    }
-                    console.log('User Registration succesful')
-                    return done(null, newUser)
-                })
-            }
-        })
-    }
-))
-
-passport.serializeUser(function (user, done) {
-    done(null, user.id);
-});
-
-passport.deserializeUser(function (id, done) {
-    User.findById(id, function (err, user) {
-        done(err, user);
-    });
-});*/
+passport.deserializeUser(async (id, done) => {
+    const user = await User.findById(id)
+    done(null, user)
+})
 
 
 authWebRouter.get('/', checkAuthenticated, (req, res) => {
@@ -110,25 +61,14 @@ authWebRouter.get('/', checkAuthenticated, (req, res) => {
 })
 
 authWebRouter.get('/login', (req, res) => {
-    const { username, password } = req.body
-    if (req.isAuthenticated()) {
-        let user = req.user;
-        console.log('user logueado');
-        res.redirect('/home');
-    }else{
-        console.log('no hay usuario logueado');
-        res.render('login');
-    }
+    res.render('login')
 })
 
 authWebRouter.post('/login', passport.authenticate('login',{
     successRedirect: '/home',
     failureRedirect: '/faillogin',
-}), (req, res) => {
-    const { username, password } = req.body
-    //const { user } = req.user
-    res.redirect('/home');
-})
+    failureFlash: true
+}))
 
 
 authWebRouter.get('/signup', (req, res) => {
@@ -139,8 +79,7 @@ authWebRouter.post('/signup', async(req, res) => {
     const { username, email, password } = req.body
     const user = new User({ username, email, password })
     await user.save()
-    res.redirect('/login')
-    
+    res.redirect('/login')  
 })
 
 authWebRouter.get('/faillogin', (req, res) => {
