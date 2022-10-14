@@ -1,0 +1,14 @@
+[
+  {
+    "title": "agua",
+    "price": "1500",
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_2X_939858-MLA31000000000_062019-O.webp",
+    "id": 1
+  },
+  {
+    "title": "harina",
+    "price": "3000",
+    "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_2X_939858-MLA31000000000_062019-O.webp",
+    "id": 2
+  }
+]

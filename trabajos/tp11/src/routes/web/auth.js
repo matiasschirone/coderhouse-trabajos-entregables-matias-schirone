@@ -7,8 +7,14 @@ import { checkAuthenticated, validPassword } from '../../auth/index.js';
 import bcrypt from 'bcrypt';
 
 import User from '../../models/user.js'; 
+import { createHash } from 'crypto';
+import user from '../../models/user.js';
 
 const authWebRouter = new Router()
+
+/*const validPassword = (user, password) => {
+    return bcrypt.compareSync(password, user.password);
+}*/
 
 passport.use('signup', new LocalStrategy({
     usernameField: 'username',
@@ -17,42 +23,49 @@ passport.use('signup', new LocalStrategy({
   }, async (req, username, password, done) => {
     const user = await User.findOne({ username: username })
     if (user) {
-        return done(null, false)
-    }else{
-        const newUser = new User({
-            username: username,
-            password: password
-        })
-        newUser.password = await newUser.encryptPassword(password)
-        await newUser.save()
-        done(null, newUser)
+        console.log(`El usuario ${username} ya existe`)
+        return done(null, false, { message: 'El usuario ya existe' })
     }
-}))
+    const newUser = {
+        username,
+        email,
+        //password: createHash (passport),
+        password
+    }
 
-passport.use('login', new LocalStrategy({
-    usernameField: 'username',
-    passwordField: 'password',
-    passReqToCallback: true
-},  async (req, username, password, done) => {
-    const user = await User.findOne({ username: username })
-    if (!user) {
-        return done(null, false)
+    User.push(newUser)
+    console.log(`Usuario ${username} creado`)
+    return done(null, newUser.id)
     }
-    if (!user.comparePassword(password)) {
-        return done(null, false)
-    }
-    return done(null, user)
-}))
+))
 
+passport.use('login', new LocalStrategy(
+    (username, password, done) => {
+        User.findOne({ username: username }, (err, user) => {   
+            
+            if (!user) {
+                console.log('no existe el usuario')
+                return done(null, false, { message: 'Usuario no encontrado' });
+            }
+            /*if (!validPassword(user, password)) {
+                console.log('contraseña incorrecta')
+                return done(null, false);
+            }*/
+            return done(null, user);
+        });
+    }
+));
+            
 
 
 passport.serializeUser((user, done) => {
     done(null, user.id)
 })
 
-passport.deserializeUser(async (id, done) => {
-    const user = await User.findById(id)
-    done(null, user)
+passport.deserializeUser((id, done) => {
+    User.findById(id, (err, user) => {
+        done(err, user)
+    })
 })
 
 
