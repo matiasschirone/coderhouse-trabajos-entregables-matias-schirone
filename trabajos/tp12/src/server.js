@@ -1,9 +1,13 @@
 import * as dotenv from 'dotenv' 
 dotenv.config()
 
+import { fork } from 'child_process'
+
 import express from 'express'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
+
+import config from './config.js'
 
 
 import { Server as HttpServer } from 'http'
@@ -11,6 +15,8 @@ import { Server as Socket } from 'socket.io'
 
 import authWebRouter from './routes/web/auth.js'
 import homeWebRouter from './routes/web/home.js'
+import infoWebRouter from './routes/web/info.js'
+import routerRandom from './routes/web/ramdom.js'
 import productosApiRouter from './routes/api/productos.js'
 
 import addProductosHandlers from './routes/ws/productos.js'
@@ -50,10 +56,13 @@ app.use(session({
     }
 }))
 
+
 app.use(productosApiRouter)
 
 app.use(authWebRouter)
 app.use(homeWebRouter)
+app.use(infoWebRouter)
+app.use(routerRandom)
 
 const connectedServer = httpServer.listen( process.env.PORT, () => {
     console.log(`Servidor escuchando en el puerto ${connectedServer.address().port}`)

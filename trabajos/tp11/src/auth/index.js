@@ -1,5 +1,4 @@
 
-import bcrypt from 'bcrypt';
 
 export function webAuth(req, res, next) {
     if (req.session?.nombre) {
@@ -24,7 +23,4 @@ export function apiAuth(req, res, next) {
     }
 }
 
-export function validPassword(username, password) {
-    return bcrypt.compareSync(password, user.password);
-  }
 
