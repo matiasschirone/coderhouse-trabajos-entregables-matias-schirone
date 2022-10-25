@@ -103,7 +103,7 @@ if (mode === "fork") {
           console.log(`worker ${worker.process.pid} died`)
       })  
     } else {
-      app.use("/test", routerCluster);
+      app.use("/test", routerRandom);
       httpServer.listen(port, () => {
         console.log(
           `ESTOY CLUSTER CORRIENDO EN MODO CLUSTER EL PUERTO : http://localhost:${port}`
