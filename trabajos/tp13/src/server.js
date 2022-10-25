@@ -86,14 +86,14 @@ app.use(infoWebRouter)
 app.use(routerRandom)
 
 if (mode === "fork") {
-    app.use("/api", routerRandom);
+    app.use("/api/randoms", routerRandom);
     httpServer.listen(port, () => {
       console.log(
         `ESTOY CORRIENDO EN  EL MODO FORK EN EL PUERTO : http://localhost:${port}`
       );
     });
   }
-  if (mode === "cluster") {
+  if (mode !== "fork") {
     if (cluster.isPrimary) {
       console.log(`Master ${process.pid} is running`)
       for (let i = 0; i < numCPUs; i++) {
@@ -103,7 +103,7 @@ if (mode === "fork") {
           console.log(`worker ${worker.process.pid} died`)
       })  
     } else {
-      app.use("/test", routerRandom);
+      app.use("/info", routerRandom);
       httpServer.listen(port, () => {
         console.log(
           `ESTOY CLUSTER CORRIENDO EN MODO CLUSTER EL PUERTO : http://localhost:${port}`
