@@ -1,8 +1,12 @@
 import * as dotenv from 'dotenv' 
 dotenv.config()
 
+//const cluster = require('cluster')
+//const http = require('http')
+//const numCPUs = require('os').cpus().length
 import cluster from 'cluster'
-import os from 'os'
+import http from 'http'
+import { cpus } from 'os'
 
 
 import { fork } from 'child_process'
@@ -26,8 +30,11 @@ import productosApiRouter from './routes/api/productos.js'
 import addProductosHandlers from './routes/ws/productos.js'
 import addMensajesHandlers from './routes/ws/mensajes.js'
 
-const cpu = os.cpus().length
-const isMaster = cluster.isMaster
+const cpu = cpus().length
+
+const PORT = process.argv[2] || 8080
+const PID = process.pid
+
 const args = process.argv.slice(2)
 
 const mongoConfig = {
@@ -72,33 +79,24 @@ app.use(homeWebRouter)
 app.use(infoWebRouter)
 app.use(routerRandom)
 
-/*if (mode === "fork") {
-    app.use("/api", routerRandom);
-    httpServer.listen(port, () => {
-      console.log(
-        `ESTOY FORK CORRIENDO EN MODO FORK EL PUERTO : http://localhost:${port}`
-      );
-    });
+if (cluster.isPrimary) {
+  console.log(`Master ${process.pid} is running`)
+  for (let i = 0; i < cpus; i++) {
+      cluster.fork()
   }
-  if (mode === "cluster") {
-    if (isMaster) {
-      for (let i = 0; i < cpus; i++) {
-        cluster.fork();
-      }
-      cluster.on("exit", (worker) => {
-        console.log(`Process with id: ${worker.process.pid} finished`);
-      });
-    } else {
-      app.use("/test", routerCluster);
-      httpServer.listen(port, () => {
-        console.log(
-          `ESTOY CLUSTER CORRIENDO EN MODO CLUSTER EL PUERTO : http://localhost:${port}`
-        );
-      });
-    }
-}*/
+  cluster.on('exit', (worker, code, signal) => {
+      console.log(`worker ${worker.process.pid} died`)
+  })
+} else {
+  http.createServer((req, res) => {
+      res.writeHead(200)
+  }).listen(8080)
+  
+  console.log(`Worker ${process.pid} started`)
+}
 
-const connectedServer = httpServer.listen( process.env.PORT, () => {
+
+/*const connectedServer = httpServer.listen( process.env.PORT, () => {
     console.log(`Servidor escuchando en el puerto ${connectedServer.address().port}`)
 })
-connectedServer.on('error', error => console.log(`Error en servidor ${error}`))
+connectedServer.on('error', error => console.log(`Error en servidor ${error}`))*/
