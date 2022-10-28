@@ -1,6 +1,6 @@
 {
   "type": "module",
-  "name": "tp14",
+  "name": "tp13",
   "version": "1.0.0",
   "description": "",
   "main": "src/server.js",
@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "cluster": "^0.7.7",
+    "compression": "^1.7.4",
     "connect-mongo": "^4.5.0",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.6",
