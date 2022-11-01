@@ -4,7 +4,7 @@ GET /api/randoms/:cant para obtener una cantidad de números aleatorios.
 GET /info ahora muestra la cantidad de núcleos de la máquina.
 -Para levantar el resto en modo cluster
 
-pm2 start server.js --name="Server Cluster" -i max --watch -- 8080
+pm2 start server.js --name="Server Cluster" --watch -i max  -- 8080
 
 Configuración NGINX
 
@@ -32,7 +32,7 @@ http {
       }
       listen       80;
       server_name  nginx_node;
-      root         ../Coderhouse/server;
+      #root         ../backend/server;
 
       location /info {
           proxy_pass http://localhost:8080/info;

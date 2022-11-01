@@ -4,6 +4,8 @@ import express from 'express'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
 
+import crypto from 'crypto'
+
 //import parseArgs from 'minimist'
 import minimist from 'minimist'
 import cluster from 'cluster'
@@ -30,6 +32,8 @@ import productosApiRouter from './routes/api/productos.js'
 
 import addProductosHandlers from './routes/ws/productos.js'
 import addMensajesHandlers from './routes/ws/mensajes.js'
+import infoRouter from './routes/web/info.js'
+import logger from './logs/logger.js'
 
 
 const PORT = parseInt(process.argv[2]) || 8080
@@ -51,6 +55,7 @@ if (modoCluster && cluster.isPrimary) {
     cluster.fork()
   })
 } else {
+  const users = {}
   const app = express()
   const httpServer = new HttpServer(app)
   const io = new Socket(httpServer)
@@ -84,7 +89,7 @@ if (modoCluster && cluster.isPrimary) {
     }
   }))
   
-  app.use(compression())
+  //app.use(compression())
   
   app.use(productosApiRouter)
   
@@ -93,6 +98,11 @@ if (modoCluster && cluster.isPrimary) {
   
   app.use(infoWebRouter)
   app.use(routerRandom)
+
+  app.use((req,res,next)=>{
+    logger.warn("NONE EXISTING URL");
+    res.sendStatus('404')
+  })
 
 
   app.listen(PORT, () => {

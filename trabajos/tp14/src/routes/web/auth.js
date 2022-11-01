@@ -17,6 +17,69 @@ authWebRouter.get('/login', (req, res) => {
     }
 })
 
+authWebRouter.get('/login', (req, res) => {
+    const nombre = req.query.nombre || " "
+    const password = req.query.password || " "
+
+    nombre = nombre.replace(/[!@#$%^&*]/g, "")
+
+    if (!nombre || !password || users[nombre]) {
+        return res.sendStatus(401)
+    }
+
+    const salt = crypto.randomBytes(128).toString('base64')
+    const hash = crypto.pbkdf2Sync(password, salt, 10000, 512, 'sha512')
+
+    users[nombre] = { salt, hash }
+
+    res.sendStatus(200)
+})
+
+authWebRouter.get("/auth-bloq", (req, res) => {
+    const nombre = req.query.nombre || " "
+    const password = req.query.password || " "
+
+    nombre = nombre.replace(/[!@#$%^&*]/g, "")
+
+    if (!nombre || !password || !users[nombre]) {
+        process.exit(1)
+        //return res.sendStatus(401)
+    }
+
+    const { salt, hash } = users[nombre]
+    const encrypthash = crypto.pbkdf2Sync(password, salt, 10000, 512, 'sha512')
+
+    if (crypto.timingSafeEqual(hash, encrypthash)) {
+        res.sendStatus(200)
+    } else {
+        process.exit(1)
+        //res.sendStatus(401)
+    }
+})
+
+authWebRouter.get("/auth-nobloq", (req, res) => {
+    const nombre = req.query.nombre || " "
+    const password = req.query.password || " "
+
+    nombre = nombre.replace(/[!@#$%^&*]/g, "")
+
+    if (!nombre || !password || !users[nombre]) {
+        process.exit(1)
+        //return res.sendStatus(401)
+    }
+
+    crypto.pbkdf2(password, users[nombre].salt, 10000, 512, 'sha512', (err, hash) => {
+        if (users[nombre].hash.toString() === hash.toString()) {
+            res.sendStatus(200)
+        } else {
+            process.exit(1)
+            //res.sendStatus(401)
+        }
+    })
+})
+
+
+
 authWebRouter.get('/logout', (req, res) => {
     const nombre = req.session?.nombre
     if (nombre) {
