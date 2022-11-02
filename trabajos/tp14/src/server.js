@@ -4,8 +4,6 @@ import express from 'express'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
 
-import crypto from 'crypto'
-
 //import parseArgs from 'minimist'
 import minimist from 'minimist'
 import cluster from 'cluster'
@@ -55,7 +53,7 @@ if (modoCluster && cluster.isPrimary) {
     cluster.fork()
   })
 } else {
-  const users = {}
+
   const app = express()
   const httpServer = new HttpServer(app)
   const io = new Socket(httpServer)
@@ -68,7 +66,7 @@ if (modoCluster && cluster.isPrimary) {
   app.use(express.json())
   app.use(express.urlencoded({ extended: true }))
   
-  //app.use(express.static('public'))
+  app.use(express.static('public'))
   
   app.set('view engine', 'ejs');
   

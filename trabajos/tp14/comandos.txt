@@ -1,4 +1,4 @@
-/*Para levantar el modo FORK
+Para levantar el modo FORK
 pm2 start server.js --name="server fork" --watch -- -p 8080
 GET /api/randoms/:cant para obtener una cantidad de números aleatorios.
 GET /info ahora muestra la cantidad de núcleos de la máquina.
@@ -56,5 +56,5 @@ artillery quick --count 50 -n 40 http://localhost:8081?max=100000 > result_fork.
 
 artillery quick --count 50 -n 40 http://localhost:8081?max=100000 > result_cluster.txt
 
+artillery quick --count 10 -n 50 "http://localhost:8080/login?maty$password=qwerty123" > result_bloq.txt
 
-*/

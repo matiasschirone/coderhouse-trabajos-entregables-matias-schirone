@@ -1,10 +1,14 @@
 import { Router } from 'express'
 
+import crypto from 'crypto'
+
 import path from 'path'
 
 const authWebRouter = new Router()
 
-authWebRouter.get('/', (req, res) => {
+const users = {}
+
+/*authWebRouter.get('/', (req, res) => {
     res.redirect('/home')
 })
 
@@ -15,38 +19,42 @@ authWebRouter.get('/login', (req, res) => {
     } else {
         res.sendFile(path.join(process.cwd(), '/views/login.html'))
     }
+})*/
+
+authWebRouter.get('/getUsers', (req, res) => {
+    res.json({ users })
 })
 
-authWebRouter.get('/login', (req, res) => {
-    const nombre = req.query.nombre || " "
-    const password = req.query.password || " "
+authWebRouter.get('/newUser', (req, res) => {
+    const username = req.query.username || ""
+    const password = req.query.password || ""
 
-    nombre = nombre.replace(/[!@#$%^&*]/g, "")
+    username = username.replace(/[!@#$%^&*]/g, "")
 
-    if (!nombre || !password || users[nombre]) {
+    if (!username || !password || users[username]) {
         return res.sendStatus(401)
     }
 
     const salt = crypto.randomBytes(128).toString('base64')
     const hash = crypto.pbkdf2Sync(password, salt, 10000, 512, 'sha512')
 
-    users[nombre] = { salt, hash }
+    users[username] = { salt, hash }
 
     res.sendStatus(200)
 })
 
 authWebRouter.get("/auth-bloq", (req, res) => {
-    const nombre = req.query.nombre || " "
-    const password = req.query.password || " "
+    const username = req.query.username || ""
+    const password = req.query.password || ""
 
-    nombre = nombre.replace(/[!@#$%^&*]/g, "")
+    username = username.replace(/[!@#$%^&*]/g, "")
 
-    if (!nombre || !password || !users[nombre]) {
+    if (!username || !password || !users[username]) {
         process.exit(1)
         //return res.sendStatus(401)
     }
 
-    const { salt, hash } = users[nombre]
+    const { salt, hash } = users[username]
     const encrypthash = crypto.pbkdf2Sync(password, salt, 10000, 512, 'sha512')
 
     if (crypto.timingSafeEqual(hash, encrypthash)) {
@@ -58,18 +66,18 @@ authWebRouter.get("/auth-bloq", (req, res) => {
 })
 
 authWebRouter.get("/auth-nobloq", (req, res) => {
-    const nombre = req.query.nombre || " "
-    const password = req.query.password || " "
+    const username = req.query.username || ""
+    const password = req.query.password || ""
 
-    nombre = nombre.replace(/[!@#$%^&*]/g, "")
+    username = username.replace(/[!@#$%^&*]/g, "")
 
-    if (!nombre || !password || !users[nombre]) {
+    if (!username || !password || !users[username]) {
         process.exit(1)
         //return res.sendStatus(401)
     }
 
-    crypto.pbkdf2(password, users[nombre].salt, 10000, 512, 'sha512', (err, hash) => {
-        if (users[nombre].hash.toString() === hash.toString()) {
+    crypto.pbkdf2(password, users[username].salt, 10000, 512, 'sha512', (err, hash) => {
+        if (users[username].hash.toString() === hash.toString()) {
             res.sendStatus(200)
         } else {
             process.exit(1)
