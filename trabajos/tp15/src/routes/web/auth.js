@@ -1,5 +1,3 @@
-
-import express from 'express'
 import { Router } from 'express'
 
 import crypto from 'crypto'
@@ -8,10 +6,9 @@ import path from 'path'
 
 const authWebRouter = new Router()
 
-
 const users = {}
 
-//pp.use(express.static('public'))
+app.use(express.static('public'))
 
 /*authWebRouter.get('/', (req, res) => {
     res.redirect('/home')
