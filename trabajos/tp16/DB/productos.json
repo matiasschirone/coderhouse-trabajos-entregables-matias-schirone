@@ -1,0 +1,22 @@
+[
+  {
+    "id": 2,
+    "timestamp": "2019-01-01T00:00:00.000Z",
+    "nombre": "motorolagalaxy",
+    "description": "motorola galaxy",
+    "codigo": "motorolagalaxy",
+    "foto": "https://www.motorola.com/us/moto-e-4g/",
+    "precio": "200",
+    "stock": "20"
+  },
+  {
+    "id": 5,
+    "timestamp": 1663716634616,
+    "nombre": "motorolagalaxy",
+    "description": "motorola galaxy",
+    "codigo": "motorolagalaxy",
+    "foto": "https://www.motorola.com/us/moto-e-4g/",
+    "precio": "200",
+    "stock": "20"
+  }
+]
