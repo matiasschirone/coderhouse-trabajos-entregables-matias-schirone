@@ -1,8 +1,11 @@
-const { response } = require('express');
+//const { response } = require('express');
+import { response } from 'express';
 //const { productById } = require('../daos/producto/productoDaoArchivo.js');
 
-const CarritoDaoArchivo = require('../daos/carrito/CarritoDaoArchivo.js');
-const ProductosDaoArchivo = require('../daos/productos/ProductosDaoArchivo.js');
+//const CarritoDaoArchivo = require('../daos/carrito/CarritoDaoArchivo.js');
+//const ProductosDaoArchivo = require('../daos/productos/ProductosDaoArchivo.js');
+import CarritoDaoArchivo from '../daos/carrito/CarritoDaoArchivo.js';
+import ProductosDaoArchivo from '../daos/productos/ProductosDaoArchivo.js';
 
 const carritoDaoArchivo = new CarritoDaoArchivo('./archivosDB/carrito.json');
 

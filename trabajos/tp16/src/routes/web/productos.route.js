@@ -9,4 +9,4 @@ routerProductos.post('/', postProducts);
 routerProductos.put('/:id', putProducts);
 routerProductos.delete('/:id', deleteProducts);
 
-module.exports = routerProductos;
+export default routerProductos;

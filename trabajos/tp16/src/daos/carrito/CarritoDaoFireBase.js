@@ -1,4 +1,5 @@
-const ContenedorFireBase = require('../../contenedores/ContenedorFireBase');
+//const ContenedorFireBase = require('../../contenedores/ContenedorFireBase');
+import ContenedorFirebase from '../../contenedores/ContenedorFireBase';
 
 class CarritoDaoFireBase extends ContenedorFireBase {
     constructor() {

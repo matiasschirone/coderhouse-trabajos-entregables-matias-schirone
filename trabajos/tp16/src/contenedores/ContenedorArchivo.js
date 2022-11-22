@@ -188,4 +188,5 @@ class ContenedorArchivo {
 	
 }
 
-module.exports = { ContenedorArchivo };
+
+export default ContenedorArchivo

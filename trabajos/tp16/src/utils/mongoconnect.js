@@ -15,4 +15,4 @@ const mongoConnect = async () => {
 	}
 };
 
-module.exports = mongoConnect;
+export default mongoConnect;

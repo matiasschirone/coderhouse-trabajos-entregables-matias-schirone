@@ -73,4 +73,4 @@ class ContenedorMongoDB {
 	}
 }
 
-module.exports = ContenedorMongoDB;
+export default ContenedorMongoDB

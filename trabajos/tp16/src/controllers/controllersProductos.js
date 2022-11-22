@@ -1,6 +1,8 @@
-const { response } = require('express');
+//const { response } = require('express');
+import { response } from 'express';
 
-const ProductosDaoArchivo = require('../daos/productos/ProductosDaoArchivo.js')
+//const ProductosDaoArchivo = require('../daos/productos/ProductosDaoArchivo.js')
+import ProductosDaoArchivo from '../daos/productos/ProductosDaoArchivo.js';
 
 const productosDaoArchivo = new ProductosDaoArchivo('./archivosDB/productos.json')
 
