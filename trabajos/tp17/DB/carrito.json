@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "timestamp": "2017-01-01T00:00:00.000Z",
+    "productos": [
+      {
+        "id": 1,
+        "timestamp": "2019-01-01T00:00:00.000Z",
+        "nombre": "samsungj7",
+        "description": "samsung j7",
+        "codigo": "samsungj7",
+        "foto": "https://www.samsung.com/us/mobile/galaxy-s7/",
+        "precio": "100",
+        "stock": "10"
+      },
+      {
+        "id": 2,
+        "timestamp": "2019-01-01T00:00:00.000Z",
+        "nombre": "motorolagalaxy",
+        "description": "motorola galaxy",
+        "codigo": "motorolagalaxy",
+        "foto": "https://www.motorola.com/us/moto-e-4g/",
+        "precio": "200",
+        "stock": "20"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "timestamp": "2017-01-01T00:00:00.000Z",
+    "productos": [
+      {
+        "id": 1,
+        "timestamp": "2019-01-01T00:00:00.000Z",
+        "nombre": "samsungj7",
+        "description": "samsung j7",
+        "codigo": "samsungj7",
+        "foto": "https://www.samsung.com/us/mobile/galaxy-s7/",
+        "precio": "100",
+        "stock": "10"
+      },
+      {
+        "id": 3,
+        "timestamp": "2019-01-01T00:00:00.000Z",
+        "nombre": "samsungj7",
+        "description": "samsung j7",
+        "codigo": "samsungj7",
+        "foto": "https://www.samsung.com/us/mobile/galaxy-s7/",
+        "precio": "100",
+        "stock": "10"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "timestamp": "2017-01-01T00:00:00.000Z",
+    "productos": [
+      {
+        "id": 3,
+        "timestamp": "2019-01-01T00:00:00.000Z",
+        "nombre": "samsungj7",
+        "description": "samsung j7",
+        "codigo": "samsungj7",
+        "foto": "https://www.samsung.com/us/mobile/galaxy-s7/",
+        "precio": "100",
+        "stock": "10"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "timestamp": 1663729175449
+  }
+]
